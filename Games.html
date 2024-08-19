@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelNebula</title>
+    <link rel="icon" href="Pictures/Logo.png" type="image/png"> <!-- Favicon added -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('Pictures/background.png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 0px;
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+        .header {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 60px;
+            margin: 0;
+        }
+        .header h2 {
+            font-size: 40px;
+            margin: 0;
+        }
+        .menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 20px; /* Adjust the spacing between menu items */
+        }
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .menu a.Games {
+            text-decoration: underline;
+        }
+        .menu a.logout {
+            position: absolute;
+            left: 1320px;
+        }
+        footer {
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: white;
+            padding: 10px 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Background color to make the text stand out */
+        }
+        .games-section {
+            margin-top: 90px; /* Move games up by 10 pixels */
+            padding: 20px;
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .games-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Space between game items */
+            justify-content: center;
+        }
+        .game-item {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 3px solid white; /* White border */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left; /* Align text to the left */
+            width: 300px; /* Fixed width for game items */
+            box-sizing: border-box;
+            position: relative;
+        }
+        .game-item img.game-image {
+            width: 100px; /* Fixed width for the image */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px;
+            margin-right: 20px; /* Space between image and text */
+        }
+        .game-item .text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1; /* Allow the text container to expand */
+            text-align: center; /* Center text within the container */
+        }
+        .game-item h3 {
+            margin: 0 0 10px 0;
+            font-weight: bold; /* Make the game text bold */
+        }
+        .play-button {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: 2px solid white; /* Border for play button */
+            margin-top: 10px;
+        }
+        .play-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body onload="checkLoginStatus()">
+    <!-- Menu -->
+    <div class="menu">
+        <a href="Home.html">Home</a>
+        <a href="Games.html" class="Games">Games/Proxies</a>
+        <a href="#" class="logout" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="header">
+        <h2>Pixel Nebula</h2>
+    </div>
+
+    <!-- Games Section -->
+    <div class="games-section">
+        <div class="games-container">
+            <!-- Existing games -->
+            <div class="game-item">
+                <img src="Pictures/2048.png" alt="Game 1" class="game-image">
+                <div class="text-container">
+                    <h3>2048</h3>
+                    <a href="Games/2048.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/cookie.png" alt="Game 2" class="game-image">
+                <div class="text-container">
+                    <h3>Cookie Clicker</h3>
+                    <a href="Games/cookieclicker.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/tetris.png" alt="Game 3" class="game-image">
+                <div class="text-container">
+                    <h3>Tetris</h3>
+                    <a href="Games/tetris.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <!-- New game items (14 more) -->
+            <div class="game-item">
+                <img src="Pictures/roblox.png" alt="Game 4" class="game-image">
+                <div class="text-container">
+                    <h3>Roblox</h3>
+                    <a href="Games/roblox.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/minecraft.png" alt="Game 5" class="game-image">
+                <div class="text-container">
+                    <h3>Minecraft</h3>
+                    <a href="Games/minecraft.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/slope.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Slope</h3>
+                    <a href="Games/slope.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/amongus.png" alt="Game 7" class="game-image">
+                <div class="text-container">
+                    <h3>Among us</h3>
+                    <a href="Games/amongus.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/eggycar.png" alt="Game 8" class="game-image">
+                <div class="text-container">
+                    <h3>Eggy Car</h3>
+                    <a href="Games/eggycar.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/drivemad.png" alt="Game 9" class="game-image">
+                <div class="text-container">
+                    <h3>Drive Mad</h3>
+                    <a href="Games/drivemad/drivemad.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/tinyfishing.png" alt="Game 10" class="game-image">
+                <div class="text-container">
+                    <h3>Tiny Fishing</h3>
+                    <a href="Games/tinyfishing.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/falloutshelter.png" alt="Game 11" class="game-image">
+                <div class="text-container">
+                    <h3>Fallout Shelter</h3>
+                    <a href="Games/falloutshelter.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/geometrydash.png" alt="Game 12" class="game-image">
+                <div class="text-container">
+                    <h3>Geometry Dash</h3>
+                    <a href="Games/geometrydash.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/fortnite.png" alt="Game 13" class="game-image">
+                <div class="text-container">
+                    <h3>Fortnite</h3>
+                    <a href="Games/fortnite.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/rocketleague.png" alt="Game 14" class="game-image">
+                <div class="text-container">
+                    <h3>Rocket League</h3>
+                    <a href="Games/rocketleague.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/terraria.png" alt="Game 15" class="game-image">
+                <div class="text-container">
+                    <h3>Terraria</h3>
+                    <a href="Games/terraria.html" class="play-button">Play</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Pixel Nebula. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function checkLoginStatus() {
+            // Check if 'Logged In' exists in localStorage
+            if (localStorage.getItem('Logged In') === null) {
+                // If not, create it and set to 'false'
+                localStorage.setItem('Logged In', 'false');
+                window.location.href = 'index.html'; // Redirect to index.html
+            } else if (localStorage.getItem('Logged In') === 'false') {
+                // Redirect to index.html if 'Logged In' is 'false'
+                window.location.href = 'index.html';
+            }
+            // If 'Logged In' is 'true', do nothing (stay on the current page)
+        }
+
+        function logout() {
+            // Set 'Logged In' to 'false' and redirect to index.html
+            localStorage.setItem('Logged In', 'false');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

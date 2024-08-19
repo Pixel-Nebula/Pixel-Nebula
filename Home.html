@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelNebula</title>
+    <link rel="icon" href="Pictures/Logo.png" type="image/png"> <!-- Favicon added -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('Pictures/background.png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 0px;
+        }
+        .header {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 60px;
+            margin: 0;
+        }
+        .header h2 {
+            font-size: 40px;
+            margin: 0;
+        }
+        .menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 20px; /* Adjust the spacing between menu items */
+        }
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .menu a.home {
+            text-decoration: underline;
+        }
+        .menu a.logout {
+            position: absolute;
+            left: 1320px;
+        }
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: white;
+        }
+        .info {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px; /* Adjusted width for shorter lines */
+            width: 90%; /* Ensures responsiveness */
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        .info h3 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        .info p {
+            font-size: 18px;
+            line-height: 1.6; /* Increased line height for better readability */
+            margin: 0; /* Removes default margin for better control */
+        }
+    </style>
+</head>
+<body onload="checkLoginStatus()">
+    <!-- Menu -->
+    <div class="menu">
+        <a href="Home.html" class="home">Home</a>
+        <a href="Games.html">Games/Proxies</a>
+        <a href="#" class="logout" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="header">
+        <h2>Welcome to</h2>
+        <h1>Pixel Nebula</h1>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info">
+        <h3>About Us</h3>
+        <p>Welcome to Pixel Nebula, your ultimate destination for all things gaming! We offer a wide range of games and tools designed to enhance your gaming experience. Explore our diverse collection of games and proxies to find your next adventure. Stay tuned for updates and new features as we continuously strive to provide the best experience for our users. If you have any questions or need support, don't hesitate to reach out to us!</p>
+    </div>
+
+    <footer>
+        &copy; 2024 Pixel Nebula. All rights reserved. pixelnebulacontact@gmail.com
+    </footer>
+    <script>
+        function checkLoginStatus() {
+            // Check if 'Logged In' exists in localStorage
+            if (localStorage.getItem('Logged In') === null) {
+                // If not, create it and set to 'false'
+                localStorage.setItem('Logged In', 'false');
+                window.location.href = 'index.html'; // Redirect to index.html
+            } else if (localStorage.getItem('Logged In') === 'false') {
+                // Redirect to index.html if 'Logged In' is 'false'
+                window.location.href = 'index.html';
+            }
+            // If 'Logged In' is 'true', do nothing (stay on the current page)
+        }
+
+        function logout() {
+            // Set 'Logged In' to 'false' and redirect to index.html
+            localStorage.setItem('Logged In', 'false');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
