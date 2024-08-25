@@ -22,16 +22,6 @@
     <noscript>
         <link href="css/nojavascript.css" rel="stylesheet" type="text/css">
     </noscript>
-    <style>
-        /* Ensure #gameContainer fills the entire viewport */
-        #gameContainer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-    </style>
 </head>
 <body class="ctrCursor">
   <div id="lang">
@@ -39,7 +29,7 @@
         .hideBeforeLoad, #loaderWindow, #popupWindow { display: none; }  
     </style>
 
-    <div id="gameContainer">
+    <div id="gameContainer" >
         <div id="game-border">
             <div id="loader-logo"></div>
         </div>
@@ -182,55 +172,22 @@
                 <div class="popupInnerFrame" id="slowComputer">
                     <div class="fBtn" id="slowComputerBtn"><img src="" /></div>
                 </div>
-                <div class="popupInnerFrame" id="confirmMenu">
-                    <div id="menuQuestion"></div>
-                    <div class="mBtn" id="menuYesBtn"><img src="" /></div>
-                    <div class="mBtn" id="menuNoBtn"><img src="" /></div>
+                <div class="popupInnerFrame" id="resetGame">
+                    <div id="resetText"></div>
+                    <div class="mBtn" id="resetYesBtn"><img src="" /></div>
+                    <div class="mBtn" id="resetNoBtn"><img src="" /></div>
+                    <div id="resetHoldYes"></div>
                 </div>
-                <div class="popupInnerFrame" id="languageWindow">
-                    <div class="mBtn" id="language-1"><img src="" /></div>
-                    <div class="mBtn" id="language-2"><img src="" /></div>
-                    <div class="mBtn" id="language-3"><img src="" /></div>
-                    <div class="mBtn" id="language-4"><img src="" /></div>
-                </div>
-                <div class="popupInnerFrame" id="credits">
-                    <div class="fBtn" id="creditsBackBtn"><img src="" /></div>
-                    <div id="creditsPanel">
-                        <div id="creditsLang"></div>
-                        <div id="creditsMouse"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="sideMenu" class="side-menu">
-            <div class="menu-background">
-            </div>
-            <div id="side-menu">
-                <div id="side-score">
-                    <img src="" />
-                </div>
-                <div id="side-back">
-                    <img src="" />
+                <div class="popupInnerFrame" id="missingStars">
+                    <div id="missingLine1"></div>
+                    <div id="missingCount"><div id="missingStar"></div></div>
+                    <div id="missingLine2"></div>
+                    <div id="missingLine3"></div>
+                    <div class="mBtn" id="missingOkBtn"></div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        function navigateMenu() {
-            var url = document.getElementById('language-1').value;
-            window.location.href = url;
-        }
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.getElementById('gameContainer').style.width = window.innerWidth + 'px';
-            document.getElementById('gameContainer').style.height = window.innerHeight + 'px';
-        });
-
-        window.addEventListener('resize', (event) => {
-            document.getElementById('gameContainer').style.width = window.innerWidth + 'px';
-            document.getElementById('gameContainer').style.height = window.innerHeight + 'px';
-        });
-    </script>
   </div>
 </body>
 </html>
