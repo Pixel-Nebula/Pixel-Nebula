@@ -29,7 +29,7 @@
         .hideBeforeLoad, #loaderWindow, #popupWindow { display: none; }  
     </style>
 
-    <div id="gameContainer" >
+    <div id="gameContainer" style="width: 100%; height: 100vh;">
         <div id="game-border">
             <div id="loader-logo"></div>
         </div>
@@ -176,18 +176,56 @@
                     <div id="resetText"></div>
                     <div class="mBtn" id="resetYesBtn"><img src="" /></div>
                     <div class="mBtn" id="resetNoBtn"><img src="" /></div>
-                    <div id="resetHoldYes"></div>
                 </div>
-                <div class="popupInnerFrame" id="missingStars">
-                    <div id="missingLine1"></div>
-                    <div id="missingCount"><div id="missingStar"></div></div>
-                    <div id="missingLine2"></div>
-                    <div id="missingLine3"></div>
-                    <div class="mBtn" id="missingOkBtn"></div>
+                <div class="popupInnerFrame" id="confirmMenu">
+                    <div id="menuQuestion"></div>
+                    <div class="mBtn" id="menuYesBtn"><img src="" /></div>
+                    <div class="mBtn" id="menuNoBtn"><img src="" /></div>
+                </div>
+                <div class="popupInnerFrame" id="languageWindow">
+                    <div class="mBtn" id="language-1"><img src="" /></div>
+                    <div class="mBtn" id="language-2"><img src="" /></div>
+                    <div class="mBtn" id="language-3"><img src="" /></div>
+                    <div class="mBtn" id="language-4"><img src="" /></div>
+                </div>
+                <div class="popupInnerFrame" id="credits">
+                    <div class="fBtn" id="creditsBackBtn"><img src="" /></div>
+                    <div id="creditsPanel">
+                        <div id="creditsLang"></div>
+                        <div id="creditsMouse"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sideMenu" class="side-menu">
+            <div class="menu-background">
+            </div>
+            <div id="side-menu">
+                <div id="side-score">
+                    <img src="" />
+                </div>
+                <div id="side-back">
+                    <img src="" />
                 </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function navigateMenu() {
+            var url = document.getElementById('language-1').value;
+            window.location.href = url;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('gameContainer').style.width = window.innerWidth + 'px';
+            document.getElementById('gameContainer').style.height = window.innerHeight + 'px';
+        });
+
+        window.addEventListener('resize', (event) => {
+            document.getElementById('gameContainer').style.width = window.innerWidth + 'px';
+            document.getElementById('gameContainer').style.height = window.innerHeight + 'px';
+        });
+    </script>
   </div>
 </body>
 </html>
