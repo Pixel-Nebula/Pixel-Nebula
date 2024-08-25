@@ -22,6 +22,16 @@
     <noscript>
         <link href="css/nojavascript.css" rel="stylesheet" type="text/css">
     </noscript>
+    <style>
+        /* Ensure #gameContainer fills the entire viewport */
+        #gameContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body class="ctrCursor">
   <div id="lang">
@@ -29,7 +39,7 @@
         .hideBeforeLoad, #loaderWindow, #popupWindow { display: none; }  
     </style>
 
-    <div id="gameContainer" style="width: 100%; height: 100vh;">
+    <div id="gameContainer">
         <div id="game-border">
             <div id="loader-logo"></div>
         </div>
@@ -171,11 +181,6 @@
             <div class="popupOuterFrame">
                 <div class="popupInnerFrame" id="slowComputer">
                     <div class="fBtn" id="slowComputerBtn"><img src="" /></div>
-                </div>
-                <div class="popupInnerFrame" id="resetGame">
-                    <div id="resetText"></div>
-                    <div class="mBtn" id="resetYesBtn"><img src="" /></div>
-                    <div class="mBtn" id="resetNoBtn"><img src="" /></div>
                 </div>
                 <div class="popupInnerFrame" id="confirmMenu">
                     <div id="menuQuestion"></div>
