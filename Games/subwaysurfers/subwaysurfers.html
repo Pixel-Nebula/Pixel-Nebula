@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelNebula</title>
+    <link rel="icon" href="../../Pictures/Logo.png" type="image/png"> <!-- Favicon added -->
+    </head>
+<body onload="checkLoginStatus()">
+        <iframe src="https://ubg98.github.io/SubwaySurfers/" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:101%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" scrolling="no"></iframe>
+        <script>
+        function checkLoginStatus() {
+            // Check if 'Logged In' exists in localStorage
+            if (localStorage.getItem('Logged In') === null) {
+                // If not, create it and set to 'false'
+                localStorage.setItem('Logged In', 'false');
+                window.location.href = '../index.html'; // Redirect to index.html
+            } else if (localStorage.getItem('Logged In') === 'false') {
+                // Redirect to index.html if 'Logged In' is 'false'
+                window.location.href = '../index.html';
+            }
+            // If 'Logged In' is 'true', do nothing (stay on the current page)
+        }
+
+        function logout() {
+            // Set 'Logged In' to 'false' and redirect to index.html
+            localStorage.setItem('Logged In', 'false');
+            window.location.href = '../index.html';
+        }
+    </script>
+</body>
+</html>
