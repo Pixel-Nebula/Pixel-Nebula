@@ -78,7 +78,26 @@
     <!-- Run the game code -->
     <script type="text/javascript" src="html5game/RetroBowl.js?WAEAC=1633155445"></script>
     <script>
-      window.onload = GameMaker_Init;
+      function checkLoginStatus() {
+                // Check if 'Logged In' exists in localStorage
+                if (localStorage.getItem('Logged In') === null) {
+                    // If not, create it and set to 'false'
+                    localStorage.setItem('Logged In', 'false');
+                    window.location.href = '../../index.html'; // Redirect to index.html
+                } else if (localStorage.getItem('Logged In') === 'false') {
+                    // Redirect to index.html if 'Logged In' is 'false'
+                    window.location.href = '../../index.html';
+                }
+                GameMaker_Init()
+            }
+    
+            function logout() {
+                // Set 'Logged In' to 'false' and redirect to index.html
+                localStorage.setItem('Logged In', 'false');
+                window.location.href = '../../index.html';
+            }
+            
+            window.onload = checkLoginStatus;
     </script>
   </body>
 </html>
