@@ -11,6 +11,29 @@
 <script src="base64.js"></script>
 <script src="/js/main.js"></script>
 <script src="main.js?v=2.089"></script>
+<script>
+	function checkLoginStatus() {
+            // Check if 'Logged In' exists in localStorage
+            if (localStorage.getItem('Logged In') === null) {
+                // If not, create it and set to 'false'
+                localStorage.setItem('Logged In', 'false');
+                window.location.href = '../../index.html'; // Redirect to index.html
+            } else if (localStorage.getItem('Logged In') === 'false') {
+                // Redirect to index.html if 'Logged In' is 'false'
+                window.location.href = '../../index.html';
+            }
+            onPageLoad()
+            // If 'Logged In' is 'true', do nothing (stay on the current page)
+        }
+
+        function logout() {
+            // Set 'Logged In' to 'false' and redirect to index.html
+            localStorage.setItem('Logged In', 'false');
+            window.location.href = '../../index.html';
+        }
+        
+        window.onload = checkLoginStatus;
+</script>
 <link href="style.css?v=2.053" rel="stylesheet" type="text/css">
 <!--[if IE]>
 <style type="text/css">
