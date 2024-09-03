@@ -139,7 +139,7 @@
     </div>
     <div class="login-container">
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        <div id="error-message" class="error-message"></div> <!-- Error message container -->
+        <div id="errormessage" class="errormessage"></div>
     </div>
     <footer>
         &copy; 2024 Pixel Nebula. All rights reserved. pixelnebulacontact@gmail.com
@@ -161,7 +161,7 @@
                     console.log('Email: ' + data.email);
                     if (data.email.endsWith('@fcpsschools.net')) {
                         if (blacklist.includes(data.email)) {
-                            errorMessage.textContent = "Sorry, This Email is blacklisted!";setTimeout(() => {errorMessage.textContent = "";}, 3000);
+                            errormessage.textContent = "Sorry, This Email is blacklisted!";setTimeout(() => {errorMessage.textContent = "";}, 3000);
                         } else {
                             localStorage.setItem('Logged In', 'true'); // Set 'Logged In' to true
                             localStorage.setItem('Email', data.email); // Store the email in localStorage
