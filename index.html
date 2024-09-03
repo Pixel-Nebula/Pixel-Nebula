@@ -157,7 +157,6 @@
                         if (blacklist.includes(data.email)) {
                             errorMessage.textContent = "Sorry, This Email is blacklisted!";setTimeout(() => {errorMessage.textContent = "";}, 3000);
                         } else {
-                            localStorage.setItem('Logged In', 'true'); // Set 'Logged In' to true
                             document.cookie = "IDToken=" + encodeURIComponent(idToken) + "; path=/";
                             window.location.href = "Home.html";
                         }
@@ -171,19 +170,8 @@
                 .catch(error => console.error('Error fetching user info:', error));
             }
 
-            //function checkLoginStatus() {
-                // Check if 'Logged In' exists in localStorage
-            //    if (localStorage.getItem('Logged In') === null) {
-                    // If not, create it and set to 'false'
-            //        localStorage.setItem('Logged In', 'false');
-            //    } else if (localStorage.getItem('Logged In') === 'true') {
-                    // Redirect to Home.html if 'Logged In' is 'true'
-            //        window.location.href = 'Home.html';
-            //    }
-            //}
-
             function checkLoginStatus() {
-    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const cookies = document.cookie.split(';').reduce((acc, cookie) => {
         const [key, value] = cookie.split('=').map(c => c.trim());
         acc[key] = value;
         return acc;
