@@ -79,7 +79,7 @@
             position: relative; /* Centering effect */
             z-index: 1; /* Ensure it stays above other content */
             width: 100px;
-            height: 1250px;
+            height: 50px;
         }
         .login-container input[type="text"] {
             border: 2px solid white;
@@ -147,6 +147,7 @@
     <script>
 
         const blacklist = [""];
+        const errorMessage = document.getElementById('error-message');
 
         function handleCredentialResponse(response) {
             console.log("ID Token: " + response.credential);
@@ -161,7 +162,7 @@
                     console.log('Email: ' + data.email);
                     if (data.email.endsWith('@fcpsschools.net')) {
                         if (blacklist.includes(data.email)) {
-                            errormessage.textContent = "Sorry, This Email is blacklisted!";setTimeout(() => {errorMessage.textContent = "";}, 3000);
+                            errorMessage.textContent = "Sorry, This Email is blacklisted!";setTimeout(() => {errorMessage.textContent = "";}, 3000);
                         } else {
                             localStorage.setItem('Logged In', 'true'); // Set 'Logged In' to true
                             localStorage.setItem('Email', data.email); // Store the email in localStorage
@@ -170,7 +171,7 @@
                         } else {
                             errorMessage.textContent = "Please enter a valid FCPS Email!";
                             setTimeout(() => {
-                            errorMessage.textContent = ""; // Clear the error message after 3 seconds
+                                errorMessage.textContent = ""; // Clear the error message after 3 seconds
                             }, 3000);
                         }
                 })
