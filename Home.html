@@ -124,20 +124,11 @@
     if (idToken) {
         fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
             .then(response => response.json())
-            .then(data => {
-                if (data.email.endsWith('@fcpsschools.net') && !blacklist.includes(data.email)) {
-                    // Redirect to Home.html if ID Token is valid
-                    window.location.href = 'Home.html';
-                } else {
-                    // If ID Token is invalid, clear the cookie and redirect to index.html
-                    deleteIDTokenCookie();
-                    window.location.href = 'index.html';
-                }
-            })
+            .then(data => {})
             .catch(error => {
                 console.error('Error validating token:', error);
                 // Clear the cookie and redirect to index.html if token validation fails
-                deleteIDTokenCookie();
+                document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
                 window.location.href = 'index.html';
             });
     } else {
