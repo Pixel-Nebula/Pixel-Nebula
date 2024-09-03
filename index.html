@@ -135,6 +135,19 @@
         &copy; 2024 Pixel Nebula. All rights reserved. pixelnebulacontact@gmail.com
     </footer>
     <script>
+
+        function onSignIn(googleUser) {
+            try {
+                const profile = googleUser.getBasicProfile();
+                alert('ID: ' + profile.getId());
+                alert('Name: ' + profile.getName());
+                alert('Image URL: ' + profile.getImageUrl());
+                alert('Email: ' + profile.getEmail());
+            } catch (error) {
+                alert('Error during sign-in:', error);
+            }
+        }
+        
         // Hard-coded whitelist and blacklist arrays
         const whitelist = [""];
         const blacklist = [""];
