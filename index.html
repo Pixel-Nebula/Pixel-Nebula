@@ -6,17 +6,6 @@
     <title>PixelNebula</title>
     <link rel="icon" href="Pictures/Logo.png" type="image/png"> <!-- Favicon added -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <div id="g_id_onload"
-        data-client_id="442066322822-2vl20nqtoiq2f0q9t1pgts9p6d8dc010.apps.googleusercontent.com"
-        data-callback="handleCredentialResponse">
-    </div>
-    <div class="g_id_signin"
-        data-type="standard"
-        data-shape="rectangular"
-        data-theme="outline"
-        data-text="sign_in_with"
-        data-size="large">
-    </div>
     <style>
         body {
             margin: 0;
@@ -138,6 +127,17 @@
         <h1>Pixel Nebula</h1>
     </div>
     <div class="login-container">
+        <div id="g_id_onload"
+            data-client_id="442066322822-2vl20nqtoiq2f0q9t1pgts9p6d8dc010.apps.googleusercontent.com"
+            data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="outline"
+            data-text="sign_in_with"
+            data-size="large">
+        </div>
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
         <div id="errormessage" class="errormessage"></div>
     </div>
