@@ -113,17 +113,33 @@
     </footer>
     <script>
         function checkLoginStatus() {
-            // Check if 'Logged In' exists in localStorage
-            if (localStorage.getItem('Logged In') === null) {
-                // If not, create it and set to 'false'
-                localStorage.setItem('Logged In', 'false');
-                window.location.href = 'index.html'; // Redirect to index.html
-            } else if (localStorage.getItem('Logged In') === 'false') {
-                // Redirect to index.html if 'Logged In' is 'false'
-                window.location.href = 'index.html';
-            }
-            // If 'Logged In' is 'true', do nothing (stay on the current page)
-        }
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=').map(c => c.trim());
+        acc[key] = value;
+        return acc;
+    }, {});
+
+    const idToken = cookies.IDToken;
+    
+    if (idToken) {
+        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.email.endsWith('@fcpsschools.net') && !blacklist.includes(data.email)) {
+                    // Redirect to Home.html if ID Token is valid
+                    window.location.href = 'Home.html';
+                } else {
+                    // If ID Token is invalid, clear the cookie and reset login status
+                    deleteCookie('IDToken');
+                }
+            })
+            .catch(error => {
+                console.error('Error validating token:', error);
+                // Clear the cookie if token validation fails
+                deleteCookie('IDToken');
+            });
+    }
+}
 
         function logout() {
             document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
