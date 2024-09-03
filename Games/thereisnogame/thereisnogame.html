@@ -51,26 +51,7 @@
 	<script src="js/c2runtime.js"></script>
     <script src="js/c2webappstart.js"></script>
 	<script>
-		function checkLoginStatus() {
-				// Check if 'Logged In' exists in localStorage
-				if (localStorage.getItem('Logged In') === null) {
-					// If not, create it and set to 'false'
-					localStorage.setItem('Logged In', 'false');
-					window.location.href = '../../index.html'; // Redirect to index.html
-				} else if (localStorage.getItem('Logged In') === 'false') {
-					// Redirect to index.html if 'Logged In' is 'false'
-					window.location.href = '../../index.html';
-				}
-				// If 'Logged In' is 'true', do nothing (stay on the current page)
-			}
-	
-			function logout() {
-				// Set 'Logged In' to 'false' and redirect to index.html
-				localStorage.setItem('Logged In', 'false');
-				window.location.href = '../../index.html';
-			}
-			
-			window.onload = checkLoginStatus;
+		
 	</script>
 </body> 
 </html> 
