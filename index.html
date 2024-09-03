@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PixelNebula</title>
     <link rel="icon" href="Pictures/Logo.png" type="image/png"> <!-- Favicon added -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="969220335009-8qmk1b3bgvliq1spf00dn49mnj4hjq96.apps.googleusercontent.com">
     <style>
         body {
             margin: 0;
@@ -126,6 +128,7 @@
     <div class="login-container">
         <input type="text" id="emailInput" placeholder="Student Email">
         <button onclick="login()">Login</button>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
         <div id="error-message" class="error-message"></div> <!-- Error message container -->
     </div>
     <footer>
