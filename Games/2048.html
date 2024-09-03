@@ -156,7 +156,7 @@
         }
     </style>
 </head>
-<body onload="checkLoginStatus()">
+<body>
     <!-- Menu -->
     <div class="menu">
         <a href="../Home.html">Home</a>
@@ -205,28 +205,7 @@
             document.getElementById('high-score').textContent = `High Score: ${highScore}`;
         }
 
-
-        function checkLoginStatus() {
-            // Check if 'Logged In' exists in localStorage
-            if (localStorage.getItem('Logged In') === null) {
-                // If not, create it and set to 'false'
-                localStorage.setItem('Logged In', 'false');
-                window.location.href = '../index.html'; // Redirect to index.html
-            } else if (localStorage.getItem('Logged In') === 'false') {
-                // Redirect to index.html if 'Logged In' is 'false'
-                window.location.href = '../index.html';
-            }
-            onPageLoad()
-            // If 'Logged In' is 'true', do nothing (stay on the current page)
-        }
-
-        function logout() {
-            // Set 'Logged In' to 'false' and redirect to index.html
-            localStorage.setItem('Logged In', 'false');
-            window.location.href = '../index.html';
-        }
-        
-        window.onload = checkLoginStatus;
+        window.onload = onPageLoad;
     </script>
 </body>
 </html>

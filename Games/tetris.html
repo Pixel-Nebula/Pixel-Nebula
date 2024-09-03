@@ -163,28 +163,6 @@
     </footer>
 
     <script>
-
-function checkLoginStatus() {
-            // Check if 'Logged In' exists in localStorage
-            if (localStorage.getItem('Logged In') === null) {
-                // If not, create it and set to 'false'
-                localStorage.setItem('Logged In', 'false');
-                window.location.href = '../index.html'; // Redirect to index.html
-            } else if (localStorage.getItem('Logged In') === 'false') {
-                // Redirect to index.html if 'Logged In' is 'false'
-                window.location.href = '../index.html';
-            }
-            // If 'Logged In' is 'true', do nothing (stay on the current page)
-        }
-
-        function logout() {
-            // Set 'Logged In' to 'false' and redirect to index.html
-            localStorage.setItem('Logged In', 'false');
-            window.location.href = '../index.html';
-        }
-
-
-
     const rows = 20;
     const cols = 10;
     const tetrisBoard = document.getElementById('tetris-board');
@@ -419,28 +397,7 @@ function checkLoginStatus() {
     });
 
     createBoard(); // Initial board setup
-
-        function checkLoginStatus() {
-            // Check if 'Logged In' exists in localStorage
-            if (localStorage.getItem('Logged In') === null) {
-                // If not, create it and set to 'false'
-                localStorage.setItem('Logged In', 'false');
-                window.location.href = '../index.html'; // Redirect to index.html
-            } else if (localStorage.getItem('Logged In') === 'false') {
-                // Redirect to index.html if 'Logged In' is 'false'
-                window.location.href = '../index.html';
-            }
-            {if (localStorage.getItem('Tetris-HighScore') === null) {localStorage.setItem('Tetris-HighScore', '0');}updateHighScore();};
-            // If 'Logged In' is 'true', do nothing (stay on the current page)
-        }
-
-        function logout() {
-            // Set 'Logged In' to 'false' and redirect to index.html
-            localStorage.setItem('Logged In', 'false');
-            window.location.href = '../index.html';
-        }
         
-        window.onload = checkLoginStatus;
 </script>
 
 </body>
