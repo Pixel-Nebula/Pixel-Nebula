@@ -327,7 +327,7 @@
     }, {});
 
     const idToken = cookies.IDToken;
-    
+
     if (idToken) {
         fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
             .then(response => response.json())
@@ -336,15 +336,20 @@
                     // Redirect to Home.html if ID Token is valid
                     window.location.href = 'Home.html';
                 } else {
-                    // If ID Token is invalid, clear the cookie and reset login status
-                    deleteCookie('IDToken');
+                    // If ID Token is invalid, clear the cookie and redirect to Index.html
+                    deleteIDTokenCookie();
+                    window.location.href = 'Index.html';
                 }
             })
             .catch(error => {
                 console.error('Error validating token:', error);
-                // Clear the cookie if token validation fails
-                deleteCookie('IDToken');
+                // Clear the cookie and redirect to Index.html if token validation fails
+                deleteIDTokenCookie();
+                window.location.href = 'Index.html';
             });
+    } else {
+        // Redirect to Index.html if no ID Token is found
+        window.location.href = 'Index.html';
     }
 }
 
