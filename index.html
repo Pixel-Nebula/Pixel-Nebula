@@ -73,8 +73,6 @@
             justify-content: center;
             position: relative; /* Relative positioning to center content */
             z-index: 1; /* Ensure it stays above other content */
-            width: 230px; /* 10 pixels wider (220px + 10px) */
-            height: 60px;
         }
         .login-container input[type="text"] {
             border: 2px solid white;
@@ -105,7 +103,7 @@
         }
         .error-message {
             color: red;
-            font-size: 14px;
+            font-size: 17px;
             position: absolute;
             top: 100%; /* Position it below the login container */
             margin-top: 10px; /* Space between login container and error message */
@@ -113,6 +111,7 @@
             max-width: 300px;
             left: 0;
             text-align: center;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -134,7 +133,7 @@
             data-size="large">
         </div>
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        <div id="error-message" class="error-message"></div>
+        <div id="error-message" class="error-message">d</div>
     </div>
     <footer>
         &copy; 2024 Pixel Nebula. All rights reserved. pixelnebulacontact@gmail.com
