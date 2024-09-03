@@ -343,13 +343,13 @@
             })
             .catch(error => {
                 console.error('Error validating token:', error);
-                // Clear the cookie and redirect to Index.html if token validation fails
+                // Clear the cookie and redirect to index.html if token validation fails
                 deleteIDTokenCookie();
-                window.location.href = 'Index.html';
+                window.location.href = 'index.html';
             });
     } else {
-        // Redirect to Index.html if no ID Token is found
-        window.location.href = 'Index.html';
+        // Redirect to index.html if no ID Token is found
+        window.location.href = 'index.html';
     }
 }
 
