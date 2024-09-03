@@ -157,8 +157,8 @@
                     console.log('User ID: ' + data.sub);
                     console.log('Name: ' + data.name);
                     console.log('Email: ' + data.email);
-                    if (email.endsWith('@fcpsschools.net')) {
-                        if (blacklist.includes(input)) {
+                    if (data.email.endsWith('@fcpsschools.net')) {
+                        if (blacklist.includes(data.email)) {
                             errorMessage.textContent = "Sorry, This Email is blacklisted!";setTimeout(() => {errorMessage.textContent = "";}, 3000);
                         } else {
                             localStorage.setItem('Logged In', 'true'); // Set 'Logged In' to true
