@@ -137,6 +137,7 @@
     <script>
 
         function onSignIn(googleUser) {
+            alert("Working");
             try {
                 const profile = googleUser.getBasicProfile();
                 alert('ID: ' + profile.getId());
@@ -147,7 +148,7 @@
                 alert('Error during sign-in:', error);
             }
         }
-        
+
         // Hard-coded whitelist and blacklist arrays
         const whitelist = [""];
         const blacklist = [""];
