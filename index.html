@@ -5,8 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PixelNebula</title>
     <link rel="icon" href="Pictures/Logo.png" type="image/png"> <!-- Favicon added -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="442066322822-2vl20nqtoiq2f0q9t1pgts9p6d8dc010.apps.googleusercontent.com">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <div id="g_id_onload"
+        data-client_id="442066322822-2vl20nqtoiq2f0q9t1pgts9p6d8dc010.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-size="large">
+    </div>
     <style>
         body {
             margin: 0;
@@ -136,18 +146,19 @@
     </footer>
     <script>
 
-        function onSignIn(googleUser) {
-            console.error("test");
-            print("test");
-            try {
-                const profile = googleUser.getBasicProfile();
-                console.log('ID: ' + profile.getId());
-                console.log('Name: ' + profile.getName());
-                console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail());
-            } catch (error) {
-                console.error('Error during sign-in:', error);
-            }
+        function handleCredentialResponse(response) {
+            console.log("ID Token: " + response.credential);
+            
+            // Decode the ID Token to extract user information
+            const idToken = response.credential;
+            fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('User ID: ' + data.sub);
+                    console.log('Name: ' + data.name);
+                    console.log('Email: ' + data.email);
+                })
+                .catch(error => console.error('Error fetching user info:', error));
         }
 
         // Hard-coded whitelist and blacklist arrays
