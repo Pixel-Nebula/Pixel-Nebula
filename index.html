@@ -137,15 +137,16 @@
     <script>
 
         function onSignIn(googleUser) {
-            alert("Working");
+            console.error("test");
+            print("test");
             try {
                 const profile = googleUser.getBasicProfile();
-                alert('ID: ' + profile.getId());
-                alert('Name: ' + profile.getName());
-                alert('Image URL: ' + profile.getImageUrl());
-                alert('Email: ' + profile.getEmail());
+                console.log('ID: ' + profile.getId());
+                console.log('Name: ' + profile.getName());
+                console.log('Image URL: ' + profile.getImageUrl());
+                console.log('Email: ' + profile.getEmail());
             } catch (error) {
-                alert('Error during sign-in:', error);
+                console.error('Error during sign-in:', error);
             }
         }
 
