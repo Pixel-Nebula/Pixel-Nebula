@@ -145,9 +145,8 @@
             function handleCredentialResponse(response) {
                 console.log("ID Token: " + response.credential);
                 const errorMessage = document.getElementById('error-message');
-            
-                // Decode the ID Token to extract user information
                 const idToken = response.credential;
+
                 fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
                     .then(response => response.json())
                     .then(data => {
@@ -159,7 +158,7 @@
                             errorMessage.textContent = "Sorry, This Email is blacklisted!";setTimeout(() => {errorMessage.textContent = "";}, 3000);
                         } else {
                             localStorage.setItem('Logged In', 'true'); // Set 'Logged In' to true
-                            localStorage.setItem('Email', data.email); // Store the email in localStorage
+                            document.cookie = "IDToken=" + encodeURIComponent(idToken) + "; path=/";
                             window.location.href = "Home.html";
                         }
                         } else {
@@ -172,16 +171,45 @@
                 .catch(error => console.error('Error fetching user info:', error));
             }
 
-            function checkLoginStatus() {
+            //function checkLoginStatus() {
                 // Check if 'Logged In' exists in localStorage
-                if (localStorage.getItem('Logged In') === null) {
+            //    if (localStorage.getItem('Logged In') === null) {
                     // If not, create it and set to 'false'
-                    localStorage.setItem('Logged In', 'false');
-                } else if (localStorage.getItem('Logged In') === 'true') {
+            //        localStorage.setItem('Logged In', 'false');
+            //    } else if (localStorage.getItem('Logged In') === 'true') {
                     // Redirect to Home.html if 'Logged In' is 'true'
+            //        window.location.href = 'Home.html';
+            //    }
+            //}
+
+            function checkLoginStatus() {
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=').map(c => c.trim());
+        acc[key] = value;
+        return acc;
+    }, {});
+
+    const idToken = cookies.IDToken;
+    
+    if (idToken) {
+        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.email.endsWith('@fcpsschools.net') && !blacklist.includes(data.email)) {
+                    // Redirect to Home.html if ID Token is valid
                     window.location.href = 'Home.html';
+                } else {
+                    // If ID Token is invalid, clear the cookie and reset login status
+                    document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
                 }
-            }
+            })
+            .catch(error => {
+                console.error('Error validating token:', error);
+                // Clear the cookie if token validation fails
+                document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            });
+    }
+}
             window.handleCredentialResponse = handleCredentialResponse;
             checkLoginStatus();
         });
