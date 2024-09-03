@@ -205,6 +205,9 @@
             document.getElementById('high-score').textContent = `High Score: ${highScore}`;
         }
 
+        function logout() {
+            document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+        }
 
         function checkLoginStatus() {
     const cookies = document.cookie.split(';').reduce((acc, cookie) => {
@@ -223,11 +226,11 @@
                 console.error('Error validating token:', error);
                 // Clear the cookie and redirect to index.html if token validation fails
                 document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-                window.location.href = 'index.html';
+                window.location.href = '../index.html';
             });
     } else {
         // Redirect to index.html if no ID Token is found
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     }
 }
 
