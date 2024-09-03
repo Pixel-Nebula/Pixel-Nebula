@@ -147,10 +147,10 @@
     <script>
 
         const blacklist = [""];
-        const errorMessage = document.getElementById('error-message');
 
         function handleCredentialResponse(response) {
             console.log("ID Token: " + response.credential);
+            const errorMessage = document.getElementById('error-message');
             
             // Decode the ID Token to extract user information
             const idToken = response.credential;
