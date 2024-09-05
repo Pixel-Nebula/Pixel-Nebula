@@ -1,16 +1,26 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+    window.cookieconsent_options = {"message":"Unsurprisingly, this website uses cookies for ads and traffic analysis.","dismiss":"Got it!","learnMore":"Learn more","link":"//orteil.dashnet.org/cookieconsentpolicy.html","target":"_blank","theme":"//orteil.dashnet.org/cookieconsent.css","domain":"dashnet.org"};
+</script>
+
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
-<title>PixelNebula</title>
+
+<title>Cookie Clicker | 3kh0</title>
+<!--
+Code and graphics copyright Orteil, 2013-2021
+Feel free to alter this code to your liking, but please do not re-host it, do not profit from it and do not present it as your own.
+-->
 <meta name="viewport" content="width=900, initial-scale=1">
-<link rel="shortcut icon" href="../../Pictures/Logo.png" />
+<link rel="shortcut icon" href="img/favicon.ico" />
 <!--<link href="https://fonts.googleapis.com/css?family=Kavoon&subset=latin,latin-ext" rel="stylesheet" type="text/css">-->
 <link href='https://fonts.googleapis.com/css?family=Merriweather:900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <script src="showads.js"></script><!-- this just detects adblockers so we can adjust the layout and play nice -->
 <script src="base64.js"></script>
 <script src="/js/main.js"></script>
 <script src="main.js?v=2.089"></script>
+<link href="style.css?v=2.053" rel="stylesheet" type="text/css">
 <script>
 	function checkLoginStatus() {
     const cookies = document.cookie.split(';').reduce((acc, cookie) => {
@@ -37,7 +47,6 @@
     }
 }
 </script>
-<link href="style.css?v=2.053" rel="stylesheet" type="text/css">
 <!--[if IE]>
 <style type="text/css">
 	#ifIE9{display:block;}
@@ -46,17 +55,17 @@
 
 <!--[if lt IE9]><script src="excanvas.compiled.js"></script><![endif]-->
 </head>
-<body onload="checkLoginStatus()">
+<body onload="CheckLogin()">
 <div id="wrapper">
 	<div id="topBar">
-		<div><b>Cookie Clicker</b>&trade; &copy; PixelNebula, 2024</div>
+		<div><b>Cookie Clicker</b>&trade; &copy; Orteil, 2021 - DashNet</div>
+		<div><a href="https://twitter.com/orteil42" target="_blank" id="topbarTwitter">twitter</a></div>
+		<div><a href="https://orteil42.tumblr.com" target="_blank" id="topbarTumblr">tumblr</a></div>
+		<div style="position:relative;"><div style="width:22px;height:32px;background:url(img/discord.png);position:absolute;left:0px;top:0px;pointer-events:none;"></div><a href="https://discordapp.com/invite/cookie" target="_blank" style="padding-left:16px;" id="topbarDiscord">Discord</a></div>
+		<div style="position:relative;"><div style="width:25px;height:32px;background:url(img/weeHoodie.png);position:absolute;left:-2px;top:0px;pointer-events:none;"></div><a class="blueLink" href="http://www.redbubble.com/people/dashnet" target="_blank" style="padding-left:12px;" id="topbarMerch">Merch!</a></div>
+		<div style="position:relative;"><div style="width:22px;height:32px;background:url(img/patreon.png);position:absolute;left:0px;top:0px;pointer-events:none;"></div><a class="orangeLink" href="https://www.patreon.com/dashnet" target="_blank" style="padding-left:16px;" id="topbarPatreon">Patreon</a></div>
 		<div style="position:relative;display:none;font-weight:bold;" id="heralds"><div style="position:absolute;top:-4px;width:31px;height:39px;background:url(img/heraldFlag.png);left:50%;margin-left:-15px;pointer-events:none;"></div><div id="heraldsAmount" style="position:relative;z-index:10;text-shadow:0px 1px 0px #000,0px 0px 6px #ff00e4;color:#fff;">-</div></div>
-		<div><a id="topbarTwitter"></a></div>
-		<div><a id="topbarTumblr"></a></div>
-		<div id="topbarDiscord"></a></div>
-		<div id="topbarMerch"></a></div>
-		<div id="topbarPatreon"></a></div>
-		<div><a id="topbarMobileCC"></a></div>
+		<div><a class="lightblueLink" style="font-weight:bold;" href="https://play.google.com/store/apps/details?id=org.dashnet.cookieclicker" target="_blank" id="topbarMobileCC">Cookie Clicker for Android</a></div>
 	</div>
 
 	<div id="game">
