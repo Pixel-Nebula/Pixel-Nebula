@@ -100,12 +100,14 @@
             line-height: 1.6; /* Increased line height for better readability */
             margin: 0; /* Removes default margin for better control */
         }
+        .menu a.back {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body onload="checkLoginStatus()">
     <!-- Menu -->
     <div class="menu">
-        <div class="back" onclick="goBack()">Back</div>
         <a class="back" onclick="goBack()">Back</a>
         <a class="tos" href="TermsofService.html">Terms of Service</a>
     </div>
