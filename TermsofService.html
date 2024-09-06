@@ -105,6 +105,7 @@
 <body onload="checkLoginStatus()">
     <!-- Menu -->
     <div class="menu">
+        <div class="back" onclick="goBack()">Back</div>
         <a class="tos" href="TermsofService.html">Terms of Service</a>
     </div>
 
@@ -183,5 +184,10 @@
     <footer>
         &copy; 2024 Pixel Nebula. All rights reserved. pixelnebulacontact@gmail.com
     </footer>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
