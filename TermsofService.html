@@ -53,7 +53,7 @@
         .menu a:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
-        .menu a.home {
+        .menu a.tos {
             text-decoration: underline;
         }
         .menu a.logout {
@@ -92,10 +92,10 @@
 <body onload="checkLoginStatus()">
     <!-- Menu -->
     <div class="menu">
-        <a href="index.html">Login</a>
-        <a href="Home.html">Home</a>
-        <a href="Games.html">Games/Proxies</a>
-        <a class="home" href="TermsofService.html">Terms of Service</a>
+        <a class="index" href="index.html">Login</a>
+        <a class="Home" href="Home.html">Home</a>
+        <a class="games" href="Games.html">Games/Proxies</a>
+        <a class="tos" href="TermsofService.html">Terms of Service</a>
     </div>
 
     <div class="header">
@@ -111,5 +111,32 @@
     <footer>
         &copy; 2024 Pixel Nebula. All rights reserved. pixelnebulacontact@gmail.com
     </footer>
+    <script>
+        function checkLoginStatus() {
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=').map(c => c.trim());
+        acc[key] = value;
+        return acc;
+    }, {});
+
+    const idToken = cookies.IDToken;
+
+    if (idToken) {
+        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("index").display = none;
+            })
+            .catch(error => {
+                console.error('Error validating token:', error);
+                document.getElementById("Home").display = none;
+                document.getElementById("games").display = none;
+                document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            });
+    } else {
+        document.getElementById("Home").display = none;
+        document.getElementById("games").display = none;
+    }
+}
 </body>
 </html>
