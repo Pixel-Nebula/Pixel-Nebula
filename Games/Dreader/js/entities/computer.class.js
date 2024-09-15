@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import AudioManager from '../core/audiomanager.class.js';
+//import AudioManager from '../core/audiomanager.class.js';
 import Entity from '../core/entity.class.js';
 import Input from '../core/input.class.js';
 import Options from '../core/options.class.js';
@@ -221,7 +221,7 @@ export default class Computer extends Entity {
         if (this._audioStatic !== null) {
             this._audioStatic.setVolume(0.01);
 
-            AudioManager.getAudioInstance('sound__static').play();
+            //AudioManager.getAudioInstance('sound__static').play();
         }
     }
 
@@ -282,41 +282,41 @@ export default class Computer extends Entity {
     }
 
     playAmbient() {
-        if (this._audioHum === null) {
-            const audioListener = new THREE.AudioListener();
-            audioListener.name = 'AudioListener';
-            this._player.getCamera().add(audioListener);
+        //if (this._audioHum === null) {
+            //const audioListener = new THREE.AudioListener();
+            //audioListener.name = 'AudioListener';
+            //this._player.getCamera().add(audioListener);
 
-            this._audioStatic = new THREE.PositionalAudio(audioListener)
-                .setMediaElementSource(AudioManager.getAudioInstance('sound__static'));
-            this._objectMonitor.add(this._audioStatic);
+            //this._audioStatic = new THREE.PositionalAudio(audioListener)
+                //.setMediaElementSource(AudioManager.getAudioInstance('sound__static'));
+            //this._objectMonitor.add(this._audioStatic);
 
-            this._audioHum = new THREE.PositionalAudio(audioListener)
-                .setMediaElementSource(AudioManager.getAudioInstance('sound__computer_hum'));
-            AudioManager.getAudioInstance('sound__computer_hum').loop = true;
-            this._objectMonitor.add(this._audioHum);
+            //this._audioHum = new THREE.PositionalAudio(audioListener)
+                //.setMediaElementSource(AudioManager.getAudioInstance('sound__computer_hum'));
+            //AudioManager.getAudioInstance('sound__computer_hum').loop = true;
+            //this._objectMonitor.add(this._audioHum);
 
-            this._audioWind = new THREE.Audio(audioListener)
-                .setMediaElementSource(AudioManager.getAudioInstance('sound__wind_howling'));
-            AudioManager.getAudioInstance('sound__wind_howling').loop = true;
+            //this._audioWind = new THREE.Audio(audioListener)
+                //.setMediaElementSource(AudioManager.getAudioInstance('sound__wind_howling'));
+            //AudioManager.getAudioInstance('sound__wind_howling').loop = true;
 
-            this._audioAtmosphere = new THREE.Audio(audioListener)
-                .setMediaElementSource(AudioManager.getAudioInstance('sound__atmosphere'));
-            AudioManager.getAudioInstance('sound__atmosphere').loop = true;
-            this._objectMonitor.add(this._audioAtmosphere);
-        }
+            //this._audioAtmosphere = new THREE.Audio(audioListener)
+                //.setMediaElementSource(AudioManager.getAudioInstance('sound__atmosphere'));
+            //AudioManager.getAudioInstance('sound__atmosphere').loop = true;
+            //this._objectMonitor.add(this._audioAtmosphere);
+        //}
 
-        AudioManager.getAudioInstance('sound__computer_hum').play();
-        AudioManager.getAudioInstance('sound__wind_howling').play();
+        //AudioManager.getAudioInstance('sound__computer_hum').play();
+        //AudioManager.getAudioInstance('sound__wind_howling').play();
 
-        this._audioHum.setVolume(Computer._audioVolumeHum * config.audio.volume);
-        this._audioWind.setVolume(Computer._audioVolumeWind * config.audio.volume);
+        //this._audioHum.setVolume(Computer._audioVolumeHum * config.audio.volume);
+        //this._audioWind.setVolume(Computer._audioVolumeWind * config.audio.volume);
     }
 
     playHorrorAmbient() {
-        AudioManager.getAudioInstance('sound__atmosphere').play();
+        //AudioManager.getAudioInstance('sound__atmosphere').play();
 
-        this._audioAtmosphere.setVolume(Computer._audioVolumeAtmosphere * config.audio.volume);
+        //this._audioAtmosphere.setVolume(Computer._audioVolumeAtmosphere * config.audio.volume);
     }
 
     fadeAmbient(duration = 0.1) {
