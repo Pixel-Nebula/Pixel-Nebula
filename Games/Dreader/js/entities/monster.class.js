@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import AudioManager from '../core/audiomanager.class.js';
+//import AudioManager from '../core/audiomanager.class.js';
 import Entity from '../core/entity.class.js';
 import ModelManager from '../core/modelmanager.class.js';
 import Options from '../core/options.class.js';
@@ -150,9 +150,9 @@ export default class Monster extends Entity {
 
                 const stepNew = this._action === null ? 0 : this._action.time / this._action.getClip().duration;
 
-                if (stepOld < 0.3 && stepNew >= 0.3 || stepOld < 0.8 && stepNew >= 0.8) {
-                    AudioManager.play('sound__footstep', Math.min(0.8, this._secondsSinceStart / 20));
-                }
+                //if (stepOld < 0.3 && stepNew >= 0.3 || stepOld < 0.8 && stepNew >= 0.8) {
+                //    AudioManager.play('sound__footstep', Math.min(0.8, this._secondsSinceStart / 20));
+                //}
 
                 break;
 
@@ -227,7 +227,7 @@ export default class Monster extends Entity {
                     this._action = null;
 
                     context.time.setTimeout(() => {
-                        AudioManager.play('sound__footstep', 0.8);
+                        //AudioManager.play('sound__footstep', 0.8);
 
                         this._animatorReal.playAction('Grab', 1, 1, 0.4, () => {
                             finishedCallback();

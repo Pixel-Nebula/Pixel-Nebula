@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import AudioManager from '../core/audiomanager.class.js';
+//import AudioManager from '../core/audiomanager.class.js';
 import Entity from '../core/entity.class.js';
 import Input from '../core/input.class.js';
 import Options from '../core/options.class.js';
@@ -210,9 +210,9 @@ export default class Maze extends Entity {
             if (object.options.has('triggerTime') &&
                 Math.floor(lastTime / object.options.get('triggerTime')) !==
                 Math.floor(object.time / object.options.get('triggerTime'))) {
-                if (object.options.get('repeat', false) && !object.options.get('noNoise', false)) {
-                    AudioManager.play('sound__virtual_timer');
-                }
+                //if (object.options.get('repeat', false) && !object.options.get('noNoise', false)) {
+                    //AudioManager.play('sound__virtual_timer');
+                //}
 
                 triggered = true;
             }
@@ -225,9 +225,9 @@ export default class Maze extends Entity {
 
             const active = object.type === 'button' && object.newHovered && Input.getMouseButton();
             if (object.active && !active) {
-                if (!object.options.get('noNoise', false)) {
-                    AudioManager.play('sound__virtual_button');
-                }
+                //if (!object.options.get('noNoise', false)) {
+                //    AudioManager.play('sound__virtual_button');
+                //}
 
                 triggered = true;
             }
@@ -255,9 +255,9 @@ export default class Maze extends Entity {
                     }
                 });
 
-                if (touchTrigger && destroyed && !object.options.get('noNoise', false)) {
-                    AudioManager.play('sound__virtual_break');
-                }
+                //if (touchTrigger && destroyed && !object.options.get('noNoise', false)) {
+                //    AudioManager.play('sound__virtual_break');
+                //}
 
                 this._dirty = true;
 

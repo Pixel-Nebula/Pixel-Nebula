@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import AudioManager from '../core/audiomanager.class.js';
+//import AudioManager from '../core/audiomanager.class.js';
 import Entity from '../core/entity.class.js';
 import Input from '../core/input.class.js';
 import ModelManager from '../core/modelmanager.class.js';
@@ -146,16 +146,16 @@ export default class Player extends Entity {
         const mouseButtonLeft = Input.getMouseButton();
         const mouseButtonRight = Input.getMouseButton(2);
 
-        if (this._lastMouseButtonLeft !== mouseButtonLeft) {
-            AudioManager.play(mouseButtonLeft ? 'sound__mouse_down' : 'sound__mouse_up');
+        //if (this._lastMouseButtonLeft !== mouseButtonLeft) {
+            //AudioManager.play(mouseButtonLeft ? 'sound__mouse_down' : 'sound__mouse_up');
 
-            this._fingerLeft.rotation.set(-0.24, Input.getMouseButton() ? -0.82 : -0.75, -0.38);
-        }
-        if (this._lastMouseButtonRight !== mouseButtonRight) {
-            AudioManager.play(mouseButtonRight ? 'sound__mouse_down' : 'sound__mouse_up');
+           // this._fingerLeft.rotation.set(-0.24, Input.getMouseButton() ? -0.82 : -0.75, -0.38);
+       // }
+        //if (this._lastMouseButtonRight !== mouseButtonRight) {
+            //AudioManager.play(mouseButtonRight ? 'sound__mouse_down' : 'sound__mouse_up');
 
-            this._fingerRight.rotation.set(-0.54, Input.getMouseButton(2) ? -0.7 : -0.61, -0.12);
-        }
+            //this._fingerRight.rotation.set(-0.54, Input.getMouseButton(2) ? -0.7 : -0.61, -0.12);
+        //}
 
         this._lastMouseButtonLeft = mouseButtonLeft;
         this._lastMouseButtonRight = mouseButtonRight;

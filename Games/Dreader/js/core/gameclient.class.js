@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import AudioManager from './audiomanager.class.js';
+//import AudioManager from './audiomanager.class.js';
 import Context from './context.class.js';
 import Input from './input.class.js';
 import ModelManager from './modelmanager.class.js';
@@ -59,7 +59,7 @@ export default class GameClient {
             font.load()
                 .then(font => {
                     document.fonts.add(font);
-                    return AudioManager.asyncLoadSounds();
+                    //return AudioManager.asyncLoadSounds();
                 })
                 .then(() => ModelManager.asyncLoadModels())
                 .then(() => MazeManager.asyncLoadData())

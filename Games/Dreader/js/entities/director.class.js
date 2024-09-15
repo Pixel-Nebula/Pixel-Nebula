@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import AudioManager from '../core/audiomanager.class.js';
+//import AudioManager from '../core/audiomanager.class.js';
 import Entity from '../core/entity.class.js';
 import Options from '../core/options.class.js';
 
@@ -49,10 +49,10 @@ export default class Director extends Entity {
 
         this._startPhase(context, 0);
 
-        AudioManager.asyncPlaySilenceOnUserGesture()
-            .then(() => {
-                this._computer.playAmbient();
-            });
+        //AudioManager.asyncPlaySilenceOnUserGesture()
+            //.then(() => {
+                //this._computer.playAmbient();
+            //});
     }
 
     _startPhase(context, index) {
@@ -124,7 +124,7 @@ export default class Director extends Entity {
                                 this._computer.showNoise(0.5, 0, 0.5, 0, index > 22 ? 0.3 : 1);
                                 this._startPhase(context, index);
 
-                                AudioManager.play('sound__virtual_destroyed');
+                                //AudioManager.play('sound__virtual_destroyed');
 
                                 break;
 
@@ -167,13 +167,13 @@ export default class Director extends Entity {
                                     this._startPhase(context, index + 1);
                                 }, 4500);
 
-                                context.time.setTimeout(() => {
-                                    AudioManager.play('sound__clothes_rustle');
-                                }, 1500);
+                               // context.time.setTimeout(() => {
+                                    //AudioManager.play('sound__clothes_rustle');
+                                //}, 1500);
 
-                                context.time.setTimeout(() => {
-                                    AudioManager.play('sound__clothes_rustle');
-                                }, 5000);
+                                //context.time.setTimeout(() => {
+                                    //AudioManager.play('sound__clothes_rustle');
+                                //}, 5000);
 
                                 break;
 
@@ -183,11 +183,11 @@ export default class Director extends Entity {
                                     this._startPhase(context, index + 1);
                                 });
 
-                                context.time.setTimeout(() => {
-                                    AudioManager.play('sound__monster_corridor');
+                                //context.time.setTimeout(() => {
+                                    //AudioManager.play('sound__monster_corridor');
 
-                                    this._computer.playHorrorAmbient();
-                                }, 7000);
+                                    //this._computer.playHorrorAmbient();
+                                //}, 7000);
 
                                 this._computer.showNoise(0, 0.2, 8, 1, 0.3);
 
@@ -213,23 +213,23 @@ export default class Director extends Entity {
                                     this._computer.showNoise(2, 2, 0.5, 1.5, 0, 0);
                                 }, 500);
 
-                                context.time.setTimeout(() => {
-                                    AudioManager.play('sound__camera');
-                                }, 3000);
+                                //context.time.setTimeout(() => {
+                                    //AudioManager.play('sound__camera');
+                                //}, 3000);
 
-                                context.time.setTimeout(() => {
-                                    this._computer.showNoise(2, 2, 1, 0, 0.2, 0);
+                                //context.time.setTimeout(() => {
+                                    //this._computer.showNoise(2, 2, 1, 0, 0.2, 0);
 
-                                    AudioManager.play('sound__stinger_2');
-                                }, 7500);
+                                    //AudioManager.play('sound__stinger_2');
+                                //}, 7500);
 
                                 context.time.setTimeout(() => {
                                     this._computer.showNoise(2, 2, 1, 0.2, 1, 0);
                                 }, 7500);
 
-                                context.time.setTimeout(() => {
-                                    AudioManager.play('sound__ending_scream');
-                                }, 10000);
+                                //context.time.setTimeout(() => {
+                                    //AudioManager.play('sound__ending_scream');
+                                //}, 10000);
 
                                 context.time.setTimeout(() => {
                                     this._computer.showNoise(0, 0, 1, 0.3, 0);
@@ -266,7 +266,7 @@ export default class Director extends Entity {
                                         this._computer.showNoise(0, 0, 0.1, 1, 1);
                                         this._maze.startLevel(25, () => {});
 
-                                        AudioManager.stop();
+                                        //AudioManager.stop();
 
                                         this._computer.playAmbient();
                                     }, true);
@@ -275,8 +275,8 @@ export default class Director extends Entity {
                                 this._computer.explode(context);
                                 this._computer.fadeAmbient();
 
-                                AudioManager.stop('wind');
-                                AudioManager.play('sound__monitor_explode');
+                                //AudioManager.stop('wind');
+                                //AudioManager.play('sound__monitor_explode');
 
                                 break;
 
@@ -322,14 +322,14 @@ export default class Director extends Entity {
             case 'chat':
                 this._eventUsed.delete(name);
 
-                AudioManager.play('sound__virtual_chat');
+                //AudioManager.play('sound__virtual_chat');
 
                 break;
 
             case 'laugh':
                 this._eventUsed.delete(name);
 
-                AudioManager.play('sound__virtual_laugh');
+                //AudioManager.play('sound__virtual_laugh');
 
                 break;
 
@@ -341,30 +341,30 @@ export default class Director extends Entity {
             case 'leave_window':
                 this._monster.playAction(context, 'leave_window');
 
-                AudioManager.play('sound__stinger_1');
+                //AudioManager.play('sound__stinger_1');
 
                 break;
 
             case 'knocking':
-                AudioManager.play('sound__knocking');
+               // AudioManager.play('sound__knocking');
 
                 break;
 
             case 'unlock_door':
                 this._eventUsed.delete(name);
 
-                AudioManager.play('sound__door_unlock');
+               // AudioManager.play('sound__door_unlock');
 
                 break;
 
             case 'open_door':
-                AudioManager.play('sound__door_open', 1, false, true, 'open');
+               // AudioManager.play('sound__door_open', 1, false, true, 'open');
 
                 break;
 
             case 'close_door':
-                AudioManager.stop('open');
-                AudioManager.play('sound__door_close');
+               // AudioManager.stop('open');
+              //  AudioManager.play('sound__door_close');
 
                 this._monster.playAction(context, 'close_door');
 
@@ -381,7 +381,7 @@ export default class Director extends Entity {
                 this._monster.playAction(context, 'walk', () => {
                     this._startPhase(context, 19);
 
-                    AudioManager.stop('buildup');
+                    //AudioManager.stop('buildup');
 
                     context.time.setTimeout(() => {
                         this._computer.playAmbient();
@@ -389,7 +389,7 @@ export default class Director extends Entity {
                 });
 
                 context.time.setTimeout(() => {
-                    AudioManager.play('sound__grab_buildup', 1, false, true, 'buildup');
+                  //  AudioManager.play('sound__grab_buildup', 1, false, true, 'buildup');
 
                     this._computer.fadeAmbient(20);
                 }, 3000);
@@ -407,7 +407,7 @@ export default class Director extends Entity {
                 context.time.setTimeout(() => {
                     this._monster.playAction(context, 'behind_monitor');
 
-                    AudioManager.play('sound__stinger_3');
+                  //  AudioManager.play('sound__stinger_3');
                 }, 5600);
 
                 break;

@@ -20,7 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import AudioManager from '../core/audiomanager.class.js';
+//import AudioManager from '../core/audiomanager.class.js';
 import Entity from '../core/entity.class.js';
 import Options from '../core/options.class.js';
 
@@ -210,18 +210,18 @@ export default class Transition extends Entity {
 
         switch (name) {
             case 'enter':
-                if (!ending) {
-                    AudioManager.play('sound__virtual_door');
-                }
+                //if (!ending) {
+                //    AudioManager.play('sound__virtual_door');
+                //}
 
                 break;
 
             case 'descend':
                 if (!ending) {
                     for (let i = 0; i < 7; i++) {
-                        context.time.setTimeout(() => {
-                            AudioManager.play('sound__virtual_footstep');
-                        }, 100 + i * 200);
+                        //context.time.setTimeout(() => {
+                        //    AudioManager.play('sound__virtual_footstep');
+                        //}, 100 + i * 200);
                     }
                 }
 
@@ -230,9 +230,9 @@ export default class Transition extends Entity {
             case 'proceed':
                 if (!ending) {
                     for (let i = 0; i < 6; i++) {
-                        context.time.setTimeout(() => {
-                            AudioManager.play('sound__virtual_footstep');
-                        }, 100 + i * 500);
+                        //context.time.setTimeout(() => {
+                        //    AudioManager.play('sound__virtual_footstep');
+                        //}, 100 + i * 500);
                     }
                 }
 
@@ -240,18 +240,18 @@ export default class Transition extends Entity {
 
             case 'proceed_fast':
                 for (let i = 0; i < 10; i++) {
-                    context.time.setTimeout(() => {
-                        AudioManager.play('sound__virtual_footstep');
-                    }, 100 + i * 300);
+                    //context.time.setTimeout(() => {
+                    //    AudioManager.play('sound__virtual_footstep');
+                    //}, 100 + i * 300);
                 }
 
                 break;
 
             case 'encounter':
                 for (let i = 0; i < 15; i++) {
-                    context.time.setTimeout(() => {
-                        AudioManager.play('sound__virtual_footstep');
-                    }, 100 + i * (200 + i * 20));
+                    //context.time.setTimeout(() => {
+                    //    AudioManager.play('sound__virtual_footstep');
+                    //}, 100 + i * (200 + i * 20));
                 }
 
                 break;
