@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kahoot Bot Joiner</title>
+</head>
+<body>
+    <h1>Kahoot Bot Joiner</h1>
+    <input type="text" id="kahootCode" placeholder="Enter Kahoot Code">
+    <input type="number" id="botCount" placeholder="Number of Bots">
+    <button onclick="startBots()">Start Bots</button>
+
+    <script>
+        function generateRandomName() {
+            const adjectives = ['Quick', 'Silent', 'Mighty', 'Brave', 'Clever'];
+            const nouns = ['Tiger', 'Eagle', 'Shark', 'Lion', 'Panther'];
+            return `${adjectives[Math.floor(Math.random() * adjectives.length)]} ${nouns[Math.floor(Math.random() * nouns.length)]}`;
+        }
+
+        function startBots() {
+            const code = document.getElementById('kahootCode').value;
+            const botCount = parseInt(document.getElementById('botCount').value);
+
+            if (!code || isNaN(botCount) || botCount <= 0) {
+                alert('Please enter a valid Kahoot code and bot count.');
+                return;
+            }
+
+            for (let i = 0; i < botCount; i++) {
+                (function(i) {
+                    setTimeout(function() {
+                        const name = generateRandomName();
+                        joinKahoot(code, name);
+                    }, i * 1000); // Delay each bot by 1 second
+                })(i);
+            }
+        }
+
+        function joinKahoot(code, name) {
+            // Open a new tab for each bot
+            const url = `https://kahoot.it?pin=${code}`;
+            const win = window.open(url, '_blank');
+
+            // Use setTimeout to wait for the page to load and then fill the form
+            setTimeout(function() {
+                const nameInput = win.document.querySelector('input[name="name"]');
+                if (nameInput) {
+                    nameInput.value = name;
+                    nameInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+                    // Find and click the join button
+                    const joinButton = win.document.querySelector('button');
+                    if (joinButton) {
+                        joinButton.click();
+                    }
+                }
+            }, 5000); // Adjust as needed for page load time
+        }
+    </script>
+</body>
+</html>
