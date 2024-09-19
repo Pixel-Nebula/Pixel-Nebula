@@ -41,21 +41,31 @@
             const url = `https://kahoot.it?pin=${code}`;
             const win = window.open(url, '_blank');
 
-            const checkForElements = setInterval(function() {
-                const nameInput = win.document.querySelector('input[name="nickname"], input[name="name"]');
-                const joinButton = win.document.querySelector('button');
+            win.onload = function() {
+                setTimeout(function() {
+                    const nameInput = win.document.querySelector('input[name="nickname"], input[name="name"]');
+                    const joinButton = win.document.querySelector('button');
 
-                if (nameInput && joinButton) {
-                    clearInterval(checkForElements);
+                    if (nameInput && joinButton) {
+                        console.log('Found name input and join button');
 
-                    nameInput.value = name;
-                    nameInput.dispatchEvent(new Event('input', { bubbles: true }));
-                    
-                    setTimeout(() => {
-                        joinButton.click();
-                    }, 1000); // Delay click to ensure input is processed
-                }
-            }, 1000); // Check every second until elements are found
+                        nameInput.value = name;
+                        nameInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+                        setTimeout(() => {
+                            joinButton.click();
+                        }, 1000); // Delay click to ensure input is processed
+
+                        console.log('Bot joined with name:', name);
+                    } else {
+                        console.log('Name input or join button not found');
+                    }
+                }, 3000); // Wait for additional 3 seconds for page content to load
+            };
+
+            win.onerror = function() {
+                console.error('Error opening new window');
+            };
         }
     </script>
 </body>
