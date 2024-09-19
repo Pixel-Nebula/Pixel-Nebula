@@ -1,73 +1,26 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kahoot Bot Joiner</title>
+    <title>Fetch Data</title>
 </head>
 <body>
-    <h1>Kahoot Bot Joiner</h1>
-    <input type="text" id="kahootCode" placeholder="Enter Kahoot Code">
-    <input type="number" id="botCount" placeholder="Number of Bots">
-    <button onclick="startBots()">Start Bots</button>
-
+    <div id="content"></div>
     <script>
-        function generateRandomName() {
-            const adjectives = ['Quick', 'Silent', 'Mighty', 'Brave', 'Clever'];
-            const nouns = ['Tiger', 'Eagle', 'Shark', 'Lion', 'Panther'];
-            return `${adjectives[Math.floor(Math.random() * adjectives.length)]} ${nouns[Math.floor(Math.random() * nouns.length)]}`;
-        }
-
-        function startBots() {
-            const code = document.getElementById('kahootCode').value;
-            const botCount = parseInt(document.getElementById('botCount').value);
-
-            if (!code || isNaN(botCount) || botCount <= 0) {
-                alert('Please enter a valid Kahoot code and bot count.');
-                return;
-            }
-
-            for (let i = 0; i < botCount; i++) {
-                (function(i) {
-                    setTimeout(function() {
-                        const name = generateRandomName();
-                        joinKahoot(code, name);
-                    }, i * 5000); // Delay each bot by 5 seconds
-                })(i);
+        async function fetchData() {
+            const apiUrl = 'https://api.example.com/data'; // Replace with the API URL you want to access
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                document.getElementById('content').innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('content').innerText = 'Error: ' + error.message;
             }
         }
 
-        function joinKahoot(code, name) {
-            const url = `https://kahoot.it?pin=${code}`;
-            setTimeout(() => {}, 3000); // Delay click to ensure input is processed
-            const win = window.open(url, '_blank');
-
-            win.onload = function() {
-                setTimeout(function() {
-                    const nameInput = win.document.querySelector('input[name="nickname"], input[name="name"]');
-                    const joinButton = win.document.querySelector('button');
-
-                    if (nameInput && joinButton) {
-                        console.log('Found name input and join button');
-
-                        nameInput.value = name;
-                        nameInput.dispatchEvent(new Event('input', { bubbles: true }));
-
-                        setTimeout(() => {
-                            joinButton.click();
-                        }, 1000); // Delay click to ensure input is processed
-
-                        console.log('Bot joined with name:', name);
-                    } else {
-                        console.log('Name input or join button not found');
-                    }
-                }, 3000); // Wait for additional 3 seconds for page content to load
-            };
-
-            win.onerror = function() {
-                console.error('Error opening new window');
-            };
-        }
+        fetchData();
     </script>
 </body>
 </html>
