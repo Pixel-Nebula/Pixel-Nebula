@@ -32,7 +32,7 @@
                     setTimeout(function() {
                         const name = generateRandomName();
                         joinKahoot(code, name);
-                    }, i * 3000); // Delay each bot by 3 seconds
+                    }, i * 5000); // Delay each bot by 5 seconds
                 })(i);
             }
         }
@@ -42,7 +42,7 @@
             const win = window.open(url, '_blank');
 
             const checkForElements = setInterval(function() {
-                const nameInput = win.document.querySelector('input[name="nickname"]');
+                const nameInput = win.document.querySelector('input[name="nickname"], input[name="name"]');
                 const joinButton = win.document.querySelector('button');
 
                 if (nameInput && joinButton) {
@@ -50,8 +50,10 @@
 
                     nameInput.value = name;
                     nameInput.dispatchEvent(new Event('input', { bubbles: true }));
-
-                    joinButton.click();
+                    
+                    setTimeout(() => {
+                        joinButton.click();
+                    }, 1000); // Delay click to ensure input is processed
                 }
             }, 1000); // Check every second until elements are found
         }
