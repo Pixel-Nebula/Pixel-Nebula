@@ -39,6 +39,7 @@
 
         function joinKahoot(code, name) {
             const url = `https://kahoot.it?pin=${code}`;
+            setTimeout(() => {}, 3000); // Delay click to ensure input is processed
             const win = window.open(url, '_blank');
 
             win.onload = function() {
