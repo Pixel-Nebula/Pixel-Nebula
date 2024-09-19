@@ -57,9 +57,21 @@
         .menu a.Games {
             text-decoration: underline;
         }
-        .menu a.logout {
+        .logout {
             position: absolute;
-            left: 1320px;
+            top: 20px; /* Top right of the window */
+            right: 20px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .logout:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
         footer {
             position: relative;
@@ -156,9 +168,9 @@
         <a href="Games.html" class="Games">Games</a>
         <a href="#">Movie</a>
 	    <a href="TermsofService.html">Terms of Service</a>
-        <a href="#" class="logout" onclick="logout()">Logout</a>
     </div>
-
+    <a href="#" class="logout" onclick="logout()">Logout</a>
+    
     <div class="header">
         <h2>Pixel Nebula</h2>
     </div>
