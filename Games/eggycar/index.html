@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Eggy Car - 77Games.io Unblocked</title>
+	<title>PixelNebula</title>
 	<!-- Standardised web app manifest -->
 	<link rel="manifest" href="appmanifest.json" />
 	
@@ -13,7 +13,7 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	<link rel="apple-touch-icon" sizes="256x256" href="icon-256.png" />
 	<meta name="HandheldFriendly" content="true" />
-	  <script type="text/javascript" src="https://yalogames.github.io/cloak.js"></script>
+    <link rel="icon" href="../../Pictures/Logo.png" type="image/png"> 
 
 	<!-- Chrome for Android web app tags -->
 	<meta name="mobile-web-app-capable" content="yes" />
@@ -46,7 +46,7 @@
 
 </head> 
  
-<body> 
+<body onload="checkLoginStatus()"> 
 	<div id="fb-root"></div>
 	
 	<script>
@@ -136,6 +136,31 @@
 				OnRegisterSWError(e);
 			}
 		};
+
+        function checkLoginStatus() {
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=').map(c => c.trim());
+        acc[key] = value;
+        return acc;
+    }, {});
+
+    const idToken = cookies.IDToken;
+
+    if (idToken) {
+        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+            .then(response => response.json())
+            .then(data => {})
+            .catch(error => {
+                console.error('Error validating token:', error);
+                // Clear the cookie and redirect to index.html if token validation fails
+                document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                window.location.href = '../../index.html';
+            });
+    } else {
+        // Redirect to index.html if no ID Token is found
+        window.location.href = '../../index.html';
+    }
+}
     </script>
 </body> 
 </html> 
