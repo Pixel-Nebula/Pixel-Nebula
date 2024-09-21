@@ -12935,7 +12935,7 @@ if (Module["preInit"]) {
 var shouldRunNow = true;
 if (Module["noInitialRun"]) shouldRunNow = false;
 noExitRuntime = true;
-run();</script></head><body dir="ltr" data-new-gr-c-s-check-loaded="14.1100.0" data-gr-ext-installed=""><script src="https://218463058-163927403382736103.preview.editmysite.com/uploads/b/139890129-297434511671085883/files/Jump_Gamemonetize3.js" type="text/javascript"></script><script>
+run();</script></head><body onload="checkLoginStatus()" dir="ltr" data-new-gr-c-s-check-loaded="14.1100.0" data-gr-ext-installed=""><script src="https://218463058-163927403382736103.preview.editmysite.com/uploads/b/139890129-297434511671085883/files/Jump_Gamemonetize3.js" type="text/javascript"></script><script>
         var mpConfig = {
             "game": "monkey-mart",
             "partner": "miniplay"
@@ -13170,3 +13170,29 @@ run();</script></head><body dir="ltr" data-new-gr-c-s-check-loaded="14.1100.0" d
 
 <script>gadgets.util.runOnLoadHandlers();</script><script>window.google.csi.tickDl();
 </script><div id="button" class="imgb imgb_vis" style="position: fixed; top: 10%; left: -100px; z-index: 10; display: none;"><a target="_blank" href="https://sites.google.com/site/classroom6x/" title="More of best games"><img src="https://lh4.googleusercontent.com/lUEWrXMVEr4AdjKISyJahDRJ61bwfvHdpeYm86Djn5U8oCm9dI60NGXSBqad9HUvzTXgqlkosA_hWV-VuXPjzrkGvh3_kNSgYk8ySWzXnDpbBCBiooyBbU8oBy3YBZMDkW8RcRVmDuC0raoeqZBm8kBlqs6c5mdfkJeN2aE68lXS_lcOZ5_F7lIuM6qLVg" width="100" height="30" style="cursor:pointer;" alt="More Unblocked Games"></a></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
+<script>
+    function checkLoginStatus() {
+const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+    const [key, value] = cookie.split('=').map(c => c.trim());
+    acc[key] = value;
+    return acc;
+}, {});
+
+const idToken = cookies.IDToken;
+
+if (idToken) {
+    fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+        .then(response => response.json())
+        .then(data => {})
+        .catch(error => {
+            console.error('Error validating token:', error);
+            // Clear the cookie and redirect to index.html if token validation fails
+            document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            window.location.href = '../../index.html';
+        });
+} else {
+    // Redirect to index.html if no ID Token is found
+    window.location.href = '../../index.html';
+}
+}
+</script>
