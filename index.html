@@ -168,12 +168,12 @@
                             document.cookie = "IDToken=" + encodeURIComponent(idToken) + "; path=/";
                             window.location.href = "Home.html";
                         }
-                        } else {
-                            errorMessage.textContent = "Please enter a valid FCPS Email!";
-                            setTimeout(() => {
-                                errorMessage.textContent = ""; // Clear the error message after 3 seconds
-                            }, 3000);
-                        }
+                    } else {
+                        errorMessage.textContent = "Please enter a VALID email!";
+                        setTimeout(() => {
+                            errorMessage.textContent = ""; // Clear the error message after 3 seconds
+                        }, 3000);
+                    }
                 })
                 .catch(error => console.error('Error fetching user info:', error));
             }
