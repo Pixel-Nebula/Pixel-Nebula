@@ -34,7 +34,7 @@ const idToken = cookies.IDToken;
 
 if (idToken) {
     fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
-        .then(response => response.json())
+        .then(response => response.json(gameInstance.SetFullscreen(1)))
         .then(data => {})
         .catch(error => {
             console.error('Error validating token:', error);
