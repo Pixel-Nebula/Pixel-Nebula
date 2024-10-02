@@ -1,0 +1,20 @@
+{
+    "platforms": [
+    ],
+    "decoration": [
+    ],
+    "coins": [
+    ],
+    "move": [
+    ],
+    "spike": [
+    ],
+    "hero": [],
+    "spiders": [],
+    "door": [],
+    "key": [],
+    "kill": [],
+    "hasCoins": false,
+    "haskey": false,
+    "alpha_end": true
+}
