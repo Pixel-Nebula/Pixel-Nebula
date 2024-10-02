@@ -1,0 +1,31 @@
+{
+  "name": "countryguessr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "homepage": "https://x8bitrain.github.io/countryguessr",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "format": "prettier --write '{public,src}/**/*.{css,html,js,svelte}'",
+    "lint": "eslint --fix --quiet src --ext .js,.svelte",
+    "deploy": "gh-pages -t true -d dist"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "@tsconfig/svelte": "^4.0.1",
+    "eslint": "^8.41.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-svelte3": "^4.0.0",
+    "gh-pages": "^5.0.0",
+    "prettier": "^2.8.8",
+    "prettier-plugin-svelte": "^2.10.0",
+    "svelte": "^3.57.0",
+    "svelte-check": "^2.10.3",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  }
+}
