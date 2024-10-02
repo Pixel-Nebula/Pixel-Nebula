@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body onload="checkLoginStatus()">
     <script>
       if (location.protocol.substr(0, 4) === "file") {
         alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
@@ -30,5 +30,31 @@
     <script src="scripts/main.js" type="module"></script>
     <script src="scripts/register-sw.js" type="module"></script>
     <!-- Full file list: offline.json -->
+    <script>
+      function checkLoginStatus() {
+  const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+      const [key, value] = cookie.split('=').map(c => c.trim());
+      acc[key] = value;
+      return acc;
+  }, {});
+  
+  const idToken = cookies.IDToken;
+  
+  if (idToken) {
+      fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+          .then(response => response.json())
+          .then(data => {})
+          .catch(error => {
+              console.error('Error validating token:', error);
+              // Clear the cookie and redirect to index.html if token validation fails
+              document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+              window.location.href = '../../index.html';
+          });
+  } else {
+      // Redirect to index.html if no ID Token is found
+      window.location.href = '../../index.html';
+  }
+  }
+  </script>
   </body>
 </html>
