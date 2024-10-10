@@ -8,7 +8,6 @@
     <link rel="icon" href="Pictures/Logo.png" type="image/png"> <!-- Favicon added -->
     <style>
         body {
-            display: none;
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -158,7 +157,7 @@
 
     if (idToken) {
         fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
-            .then(response => response.json(document.body.style.display = 'flex';))
+            .then(response => response.json())
             .then(data => {})
             .catch(error => {
                 console.error('Error validating token:', error);
