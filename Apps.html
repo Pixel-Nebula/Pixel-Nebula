@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelNebula</title>
+    <link rel="icon" href="Pictures/Logo.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('Pictures/background.png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 0px;
+            overflow-y: auto;
+        }
+        .header {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 60px;
+            margin: 0;
+        }
+        .header h2 {
+            font-size: 40px;
+            margin: 0;
+        }
+        .menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 20px; /* Adjust the spacing between menu items */
+        }
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .menu a.Games {
+            text-decoration: underline;
+        }
+        .logout {
+            position: absolute;
+            top: 20px; /* Top right of the window */
+            right: 20px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .logout:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .TOS {
+            position: absolute;
+            top: 20px; /* Top right of the window */
+            right: 110px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .TOS:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        footer {
+            position: relative;
+            bottom: 3px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: white;
+            padding: 3px 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Background color to make the text stand out */
+        }
+        .games-section {
+            margin-top: 40px; /* Move games up by 10 pixels */
+            padding: 20px;
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .games-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Space between game items */
+            justify-content: center;
+        }
+        .game-item {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 3px solid white; /* White border */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left; /* Align text to the left */
+            width: 300px; /* Fixed width for game items */
+            box-sizing: border-box;
+            position: relative;
+        }
+        .game-item img.game-image {
+            width: 100px; /* Fixed width for the image */
+            height: 100px; /* Maintain aspect ratio */
+            border-radius: 10px;
+            margin-right: 20px; /* Space between image and text */
+        }
+        .game-item .text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1; /* Allow the text container to expand */
+            text-align: center; /* Center text within the container */
+        }
+        .game-item h3 {
+            margin: 0 0 5px 0;
+	    font-size: 20px;
+            font-weight: bold; /* Make the game text bold */
+        }
+	.game-item p {
+	    font-size: 14px;
+            margin: 0 0 2px 0;
+        }
+        .play-button {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: 2px solid white; /* Border for play button */
+            margin-top: 10px;
+        }
+        .play-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .search-bar {
+            margin-top: 70px;
+            text-align: center;
+            width: 100%;
+        }
+        .search-bar input {
+            width: 80%;
+            max-width: 600px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid white;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+        }
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body onload="checkLoginStatus()">
+    <!-- Menu -->
+    <div class="menu">
+        <a href="Home.html">Home</a>
+        <a href="Games.html" class="Games">Games</a>
+    </div>
+    <a href="TermsofService.html" class="TOS">TOS</a>
+    <a href="#" class="logout" onclick="logout()">Logout</a>
+
+    <div class="header">
+        <h2>Pixel Nebula</h2>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search games...">
+    </div>
+
+    <!-- Games Section -->
+    <div class="games-section">
+        <div class="games-container">
+            <!-- Existing games -->
+            <div class="game-item">
+                <img src="Pictures/proxy.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>proxy</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/Proxy/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/10minutestilldawn.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>10 Minutes Till Dawn</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/10minutestilldawn/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+	        <div class="game-item">
+                <img src="Pictures/2048.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>2048</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/2048/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+	        <div class="game-item">
+                <img src="Pictures/cookie.png" alt="Game 1" class="game-image">
+                <div class="text-container">
+                    <h3>Cookie Clicker</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/cookieclicker/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/minecraft.png" alt="Game 5" class="game-image">
+                <div class="text-container">
+                    <h3>Minecraft</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/minecraft/minecraft.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/drawthehill.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Draw the Hill</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/drawthehill/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/gunmayhem.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Gun Mayhem</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/gunmayhem/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/deepestsword.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Deepest Sword</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/deepestsword/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/rocketpult.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Rocket Pult</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/rocketpult/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/monkeymart.png" alt="Game 5" class="game-image">
+                <div class="text-container">
+                    <h3>Monkey Mart</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/monkeymart/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+	    <div class="game-item">
+                <img src="Pictures/ducklife.png" alt="Game 5" class="game-image">
+                <div class="text-container">
+                    <h3>Duck Life</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/ducklife/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+	    <div class="game-item">
+                <img src="Pictures/fireboy&watergirl.png" alt="Game 5" class="game-image">
+                <div class="text-container">
+                    <h3>Fireboy & Watergirl</h3>
+                    <p><small>Up to Date!</small></p>
+                    <a href="Games/fireboyandwatergirl/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/choppyorc.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Choppy Orc</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/choppyorc/docs/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/superhot.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Super Hot</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/super hot/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/slope.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Slope</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/slope/slope.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/getawayshootout.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Getaway Shootout</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/getawayshootout/getawayshootout.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/csgoclicker.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>CSGO Clicker</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/csgoclicker/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/tosstheturtle.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Toss the Turtle</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/tosstheturtle/tosstheturtle.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/coreball.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Core Ball</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/coreball/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/gladihopper.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Gladihopper</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/gladihopper/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/thereisnogame.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>There is no game</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/thereisnogame/thereisnogame.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/boxingrandom.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Boxing Random</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/boxingrandom/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/tombofthemask.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Tomb of the Mask</h3>
+                    <p><small>Up to Date!</small></p>
+                    <a href="Games/tombofthemask/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/craftmine.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Craftmine</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/craftmine/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/paper.io.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Paper.io</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/paper.io/paper.io.html" class="play-button">Play</a>
+                </div>
+            </div>
+	    <div class="game-item">
+                <img src="Pictures/eggycar.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Eggy Car</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/eggycar/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/stack.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Stack</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/stack/stack.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/retrobowl.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Retro Bowl</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/retrobowl/retrobowl.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/drivemad.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Drive Mad</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/drivemad/drivemad.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/suikagame.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Suika Game</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/suikagame/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/theimpossiblequiz.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>The Impossible Quiz</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/theimpossiblequiz/theimpossiblequiz.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/stickmanhook.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Stickman Hook</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/stickmanhook/stickmanhook.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/houseofhazards.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>House of Hazards</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/houseofhazards/houseofhazards.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/tunnelrush.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Tunnel Rush</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/tunnelrush/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/tinyfishing.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Tiny Fishing</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/tinyfishing/tinyfishing.html" class="play-button">Play</a>
+                </div>
+            </div>
+	    <div class="game-item">
+                <img src="Pictures/idlebreakout.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Idle Breakout</h3>
+			<p><small>Up to Date!</small></p>
+                    <a href="Games/idle breakout/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/rooftopsniper.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Rooftop Sniper</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/rooftopsniper/rooftopsniper.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/paperyplane.png" alt="Text Game" class="game-image">
+                <div class="text-container">
+                    <h3>Papery Plane</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/paperyplane/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+            <div class="game-item">
+                <img src="Pictures/baconmaydie.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Bacon may Die</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/baconmaydie/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Pixel Nebula. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function checkLoginStatus() {
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=').map(c => c.trim());
+        acc[key] = value;
+        return acc;
+    }, {});
+
+    const idToken = cookies.IDToken;
+
+    if (idToken) {
+        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+            .then(response => response.json())
+            .then(data => {})
+            .catch(error => {
+                console.error('Error validating token:', error);
+                // Clear the cookie and redirect to index.html if token validation fails
+                document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                window.location.href = 'index.html';
+            });
+    } else {
+        // Redirect to index.html if no ID Token is found
+        window.location.href = 'index.html';
+    }
+}
+
+        function logout() {
+            document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            let filter = this.value.toLowerCase();
+            let gameItems = document.querySelectorAll('.game-item');
+            
+            gameItems.forEach(function(item) {
+                let gameTitle = item.querySelector('h3').textContent.toLowerCase();
+                if (gameTitle.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
