@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | ludum56</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #unity-canvas {
+            width: 100%;
+            height: 100%;
+            background: #231F20;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="unity-canvas" width="960" height="540" tabindex="-1"></canvas>
+    <script src="Build/TinyCreatures.loader.js"></script>
+    <script>
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            var meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        }
+
+        createUnityInstance(document.querySelector("#unity-canvas"), {
+            dataUrl: null, // or "Build/TinyCreatures.data" if you find one
+            frameworkUrl: "Build/TinyCreatures.framework.js",
+            codeUrl: "Build/TinyCreatures.wasm",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "Doonutsaur",
+            productName: "ludum56",
+            productVersion: "0.0.1",
+        }).then((unityInstance) => {
+            console.log("Unity instance created successfully");
+        }).catch((message) => {
+            console.error("Error creating Unity instance:", message);
+        });
+    </script>
+</body>
+</html>
