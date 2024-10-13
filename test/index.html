@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | ludum56</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #unity-canvas {
+            display: block;
+            background: #231F20;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="unity-canvas" width="960" height="540" tabindex="-1"></canvas>
+    
+    <!-- Load the Unity loader script -->
+    <script src="Build/TinyCreatures.loader.js"></script>
+    
+    <script>
+        // Check for mobile devices and adjust canvas accordingly
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            var meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+
+            var canvas = document.querySelector("#unity-canvas");
+            canvas.style.width = "100%";
+            canvas.style.height = "100%";
+            canvas.style.position = "fixed";
+        }
+
+        // Create Unity instance
+        createUnityInstance(document.querySelector("#unity-canvas"), {
+            dataUrl: "Build/TinyCreatures.data.br",
+            frameworkUrl: "Build/TinyCreatures.framework.js.br",
+            codeUrl: "Build/TinyCreatures.wasm.br",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "Doonutsaur",
+            productName: "ludum56",
+            productVersion: "0.0.1",
+            matchWebGLToCanvasSize: true,
+            devicePixelRatio: window.devicePixelRatio
+        }).then((unityInstance) => {
+            console.log("Unity instance created");
+        }).catch((message) => {
+            alert(message);
+        });
+    </script>
+
+    <!-- Explicitly load additional JavaScript files if needed -->
+    <script src="Build/TinyCreatures.framework.js.br"></script>
+    <script src="Build/TinyCreatures.loader.js"></script>
+</body>
+</html>
