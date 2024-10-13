@@ -7,16 +7,18 @@
     <style>
         body {
             margin: 0;
-            overflow: hidden;
+            overflow: hidden; /* Prevents scrolling */
         }
         #unity-canvas {
             display: block;
-            background: #231F20;
+            background: #231F20; /* Canvas background color */
+            width: 960px; /* Set canvas width */
+            height: 540px; /* Set canvas height */
         }
     </style>
 </head>
 <body>
-    <canvas id="unity-canvas" width="960" height="540" tabindex="-1"></canvas>
+    <canvas id="unity-canvas" width="960" height="540" tabindex="1"></canvas>
     
     <!-- Load the Unity loader script -->
     <script src="Build/TinyCreatures.loader.js"></script>
@@ -30,12 +32,12 @@
             document.getElementsByTagName('head')[0].appendChild(meta);
 
             var canvas = document.querySelector("#unity-canvas");
-            canvas.style.width = "100%";
-            canvas.style.height = "100%";
-            canvas.style.position = "fixed";
+            canvas.style.width = "100%";  // Make canvas width responsive
+            canvas.style.height = "100%"; // Make canvas height responsive
+            canvas.style.position = "fixed"; // Fix canvas position for mobile
         }
 
-        // Create Unity instance
+        // Create Unity instance after loading the loader script
         createUnityInstance(document.querySelector("#unity-canvas"), {
             dataUrl: "Build/TinyCreatures.data.br",
             frameworkUrl: "Build/TinyCreatures.framework.js.br",
@@ -49,13 +51,9 @@
         }).then((unityInstance) => {
             console.log("Unity instance created");
         }).catch((message) => {
-            alert(message);
+            console.error("Error creating Unity instance:", message);
+            alert("Error: " + message);
         });
     </script>
-
-    <!-- Explicitly load additional JavaScript files if needed -->
-    <script src="Build/TinyCreatures.framework.js.br"></script> 
-    <script src="Build/TinyCreatures.loader.js"></script> 
-    <script src="Build/TinyCreatures.data.br"></script>
 </body>
 </html>
