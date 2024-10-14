@@ -7,7 +7,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Tiny Truck Racing 1.06</title>
+	<title>PixelNebula</title>
+	<link rel="icon" href="../../Pictures/Logo.png" type="image/png">
 	<style type='text/css'>
 	/* Disable user selection to avoid strange bug in Chrome on Windows:
 	* Selecting a text outside the canvas, then clicking+draging would
@@ -50,7 +51,6 @@
 	canvas:focus, canvas:active {
 		outline: none;
 		border: 0;
-		ie-dummy: expression(this.hideFocus=true);
 		-moz-outline-style: none;
 	}
 
@@ -123,7 +123,7 @@
 	</style>
 </head>
 
-<body>
+<body onload="checkLoginStatus()">
 
 	<div id="app-container" class="canvas-app-container">
 		<div id="running-from-file-warning" style="display: none; margin: 3em;">
@@ -153,6 +153,32 @@
 			EngineLoader.load("canvas", "TinyTruckRacing");
 			runningFromFileWarning.parentNode.removeChild(runningFromFileWarning);
 		}
+	</script>
+	<script>
+		function checkLoginStatus() {
+	const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+		const [key, value] = cookie.split('=').map(c => c.trim());
+		acc[key] = value;
+		return acc;
+	}, {});
+	
+	const idToken = cookies.IDToken;
+	
+	if (idToken) {
+		fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+			.then(response => response.json())
+			.then(data => {})
+			.catch(error => {
+				console.error('Error validating token:', error);
+				// Clear the cookie and redirect to index.html if token validation fails
+				document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+				window.location.href = '../../index.html';
+			});
+	} else {
+		// Redirect to index.html if no ID Token is found
+		window.location.href = '../../index.html';
+	}
+	}
 	</script>
 </body>
 </html>
