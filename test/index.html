@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en-us"><head>
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -19,7 +21,7 @@
             <div id="unity-progress-bar-full"></div>
         </div>
         <div class="spinner-right"><img src="spinner.png"></div>
-    </div>
+      </div>
     </div>
   </div>
 
@@ -42,27 +44,42 @@
     const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
     const progressBarFull = document.querySelector("#unity-progress-bar-full");
 
+    // Check if the device is mobile and adjust class accordingly
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
       container.className = "unity-mobile";
     }
     
     loadingCover.style.display = "";
 
+    // Load the Unity Loader script and attach error handling
     const unityLoader = document.createElement("script");
     unityLoader.src = loaderUrl;
+
     unityLoader.onload = () => {
+      console.log("Unity loader script loaded successfully.");
+
+      // Call createUnityInstance and handle progress and errors
       createUnityInstance(canvas, config, (progress) => {
         progressBarEmpty.style.display = "";
         progressBarFull.style.width = `${100 * progress}%`;
       }).then((unityInstance) => {
+        console.log("Unity instance created successfully.");
         window.unityInstance = unityInstance;
         loadingCover.style.display = "none";
       }).catch((message) => {
+        console.error("Error while creating Unity instance:", message);
         alert(message);
       });
     };
+
+    // Log any script loading errors
+    unityLoader.onerror = (error) => {
+      console.error("Failed to load Unity loader script:", error);
+    };
+
     document.body.appendChild(unityLoader);
 
+    // Handle user interaction to focus on the container and canvas
     document.addEventListener("pointerdown", () => {
       container.focus();
       window.focus();
@@ -70,7 +87,5 @@
     });
 
   </script>
-
-
-
-</body></html>
+</body>
+</html>
