@@ -29,14 +29,16 @@
     const buildUrl = "Build";
     const loaderUrl = buildUrl + "/76f034cff49013ce85bd6945ebf32347.loader.js";
     const config = {
-      dataUrl: buildUrl + "/b78e2f19aeeb36e72ad0c25ba1389c0c.data.br",
-      frameworkUrl: buildUrl + "/eb8d005d31d7319e73a2be6cf35778c9.framework.js.br",
-      codeUrl: buildUrl + "/d47cbbbcaabab6b66593391aec42e135.wasm",
-      streamingAssetsUrl: "StreamingAssets",
-      companyName: "Ericetto",
-      productName: "Ragdoll Archers",
-      productVersion: "0.1",
-    };
+  dataUrl: buildUrl + "/b78e2f19aeeb36e72ad0c25ba1389c0c.data.br",
+  frameworkUrl: buildUrl + "/eb8d005d31d7319e73a2be6cf35778c9.framework.js.br",
+  codeUrl: buildUrl + "/d47cbbbcaabab6b66593391aec42e135.wasm.br",
+  streamingAssetsUrl: "StreamingAssets",
+  companyName: "Ericetto",
+  productName: "Ragdoll Archers",
+  productVersion: "0.1",
+  // Add this line to disable streaming
+  streamingWasm: false,
+};
 
     const container = document.querySelector("#unity-container");
     const canvas = document.querySelector("#unity-canvas");
