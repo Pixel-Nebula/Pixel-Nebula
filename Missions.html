@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelNebula</title>
+    <link rel="icon" href="Pictures/Logo.png" type="image/png"> <!-- Favicon added -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('Pictures/background.png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .header {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 60px;
+            margin: 0;
+        }
+        .header h2 {
+            font-size: 40px;
+            margin: 0;
+        }
+        .menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 20px; /* Adjust the spacing between menu items */
+        }
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .menu a.home {
+            text-decoration: underline;
+        }
+
+        .logout {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .logout:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .TOS {
+            position: absolute;
+            top: 20px;
+            right: 110px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .TOS:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: white;
+        }
+        .info {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px; 
+            width: 90%;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        .info h3 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        .info p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .timer {
+            margin-top: 30px;
+            font-size: 24px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body onload="initPage()">
+    <!-- Menu -->
+    <div class="menu">
+        <a href="Home.html">Home</a>
+        <a href="Games.html">Games</a>
+        <a href="#" class="home">Missions</a>
+    </div>
+    <a href="termsofservice.html" class="TOS">TOS</a>
+    <a href="#" class="logout" onclick="logout()">Logout</a>
+
+    <div class="header">
+        <h2>Pixel Nebula</h2>
+    </div>
+
+    <div class="timer">
+        <p id="countdown">Loading daily timer...</p>
+        <p id="timeAway">Checking last visit...</p>
+    </div>
+
+    <footer>
+        &copy; 2024 Pixel Nebula. All rights reserved. pixelnebulacontact@gmail.com
+    </footer>
+    <script>
+        function getRemainingTime() {
+            const now = new Date();
+            const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0); // Midnight of next day
+            const remaining = tomorrow - now;
+
+            const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((remaining % (1000)) / 1000);
+
+            return { hours, minutes, seconds };
+        }
+
+        function updateTimer() {
+            const time = getRemainingTime();
+            document.getElementById('countdown').innerHTML = `Time until reset: ${time.hours}h ${time.minutes}m ${time.seconds}s`;
+
+            // Re-update the timer every second
+            setTimeout(updateTimer, 1000);
+        }
+
+        function trackUserAbsence() {
+            const lastVisit = getCookie("lastVisit");
+            const now = new Date().getTime();
+
+            if (lastVisit) {
+                const lastVisitTime = parseInt(lastVisit);
+                const timeAway = now - lastVisitTime; // Time in milliseconds
+                const minutesAway = Math.floor(timeAway / (1000 * 60));
+
+                document.getElementById('timeAway').innerHTML = `You were away for: ${minutesAway} minutes`;
+            } else {
+                document.getElementById('timeAway').innerHTML = `This is your first visit today!`;
+            }
+
+            // Update the last visit time in cookies
+            setCookie("lastVisit", now, 1);
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = `expires=${date.toUTCString()}`;
+            document.cookie = `${name}=${value}; ${expires}; path=/`;
+        }
+
+        function initPage() {
+            updateTimer();  // Start the daily countdown timer
+            trackUserAbsence(); // Track user's last visit time
+        }
+
+        function logout() {
+            document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
