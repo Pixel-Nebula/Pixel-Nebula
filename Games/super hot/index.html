@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,12 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../../Pictures/Logo.png">
     <title>PixelNebula</title>
-	<script async src="https://arc.io/widget.min.js#5XPTU21J"><script data-goatcounter="https://parcoil.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script></script><script src="maintenance.js/"></script><script>
-  if (typeof navigator.serviceWorker !== 'undefined') {
-    navigator.serviceWorker.register('sw.js')
-  }
-</script>
+    
+    <!-- Async widget script -->
+    <script async src="https://arc.io/widget.min.js#5XPTU21J"></script>
+
+    <!-- GoatCounter analytics -->
+    <script data-goatcounter="https://parcoil.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+    <!-- Maintenance script -->
+    <script src="maintenance.js"></script>
+
+    <!-- Service Worker registration -->
 <script> if(top!=self){
     top.location.replace(document.location);
     window.open('https://840p.ml','_blank');window.setTimeout(function(){this.close();},1000);
@@ -71,7 +75,7 @@ for (var i = 0; i < iframes.length; i++) {
 </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body onload="checkLoginStatus()">
     <div class="webgl-content">
       <div id="unityContainer" style="width: 960px; height: 600px; padding: 0px; margin: 0px; border: 0px; position: relative; background: rgb(35, 31, 32);">
         <canvas class="emscripten" oncontextmenu="event.preventDefault()" id="canvas" width="335" height="667" style="width: 100%; height: 100%; cursor: default;"></canvas><div class="logo Dark" style="display: none;"></div><div class="progress Dark" style="display: none;"><div class="empty" style="width: 0%;"></div><div class="full" style="width: 100%;"></div></div></div>
@@ -89,6 +93,33 @@ for (var i = 0; i < iframes.length; i++) {
     </script>
     <script src="UnityLoader.js"></script>
     <script src="main.js"></script>
-    
+    <script>
+        function checkLoginStatus() {
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=').map(c => c.trim());
+        acc[key] = value;
+        return acc;
+    }, {});
+
+    const idToken = cookies.IDToken;
+
+    if (idToken) {
+        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+            .then(response => response.json())
+            .then(data => {})
+            .catch(error => {
+                console.error('Error validating token:', error);
+                // Clear the cookie and redirect to index.html if token validation fails
+                document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                window.location.href = '../../index.html';
+            });
+    } else {
+        // Redirect to index.html if no ID Token is found
+        window.location.href = '../../index.html';
+    }
+}
+    </script>
   </body>
 </html>
+
+

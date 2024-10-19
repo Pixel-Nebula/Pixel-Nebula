@@ -12,7 +12,7 @@
   <title>PixelNebula</title>
   <style>*{margin:0;padding:0;overflow:hidden;}</style>
 </head>
-<body>
+<body onload="checkLoginStatus()">
   <center><div id='ruffle' class="gameloc"></div></center>
   <script>
     var swfobject = {};
@@ -38,5 +38,31 @@
       swfobject.embedSWF("./game.swf", 'ruffle', "100vw", "100vh");
     });
   </script>
+  <script>
+    function checkLoginStatus() {
+const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+    const [key, value] = cookie.split('=').map(c => c.trim());
+    acc[key] = value;
+    return acc;
+}, {});
+
+const idToken = cookies.IDToken;
+
+if (idToken) {
+    fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+        .then(response => response.json())
+        .then(data => {})
+        .catch(error => {
+            console.error('Error validating token:', error);
+            // Clear the cookie and redirect to index.html if token validation fails
+            document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            window.location.href = '../../index.html';
+        });
+} else {
+    // Redirect to index.html if no ID Token is found
+    window.location.href = '../../index.html';
+}
+}
+</script>
 </body>
 </html>
