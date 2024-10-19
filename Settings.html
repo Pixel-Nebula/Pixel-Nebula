@@ -20,6 +20,7 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
+            padding-top: 0px;
         }
         .header {
             margin-top: 20px;
@@ -45,13 +46,63 @@
             color: white;
             font-size: 16px;
             font-weight: bold;
-            padding: 10px;
+            padding: 5px;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
         .menu a:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
+        .menu a.home {
+            text-decoration: underline;
+        }
+
+        .profile {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile:hover img {
+            transform: scale(1.1);
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px; /* Positioning the dropdown below the profile image */
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+
+        .dropdown a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
         footer {
             position: absolute;
             bottom: 10px;
@@ -59,34 +110,104 @@
             text-align: center;
             font-size: 12px;
             color: white;
-            z-index: 100;
         }
-        .menu a.back {
-            cursor: pointer;
+
+        .info {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info h3 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .info p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0;
         }
     </style>
 </head>
-<body>
+<body onload="">
     <!-- Menu -->
     <div class="menu">
-        <a class="back" onclick="goBack()">Back</a>
+        <a href="Home.html">Home</a>
+        <a href="Games.html">Games</a>
+    </div>
+
+    <div class="profile" onclick="toggleDropdown()">
+        <img id="profile-pic" src="Pictures/profilepic.jpg" alt="Profile">
+        <div class="dropdown" id="dropdown-menu">
+            <a href="Settings.html">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
     </div>
 
     <div class="header">
         <h2>Pixel Nebula</h2>
+        <h3>Under Development!</h3>
     </div>
 
     <!-- Info Section -->
-    <div class="info">
-        <h3>Page Under Development!</h3>
-    </div>
+    
 
     <footer>
         &copy; 2024 Pixel Nebula. All rights reserved. | pixelnebulacontact@gmail.com | <a href="termsofservice.html" style="text-decoration: none; color: blue;">TOS</a>
     </footer>
+
     <script>
-        function goBack() {
-            window.history.back();
+        function checkLoginStatus() {
+            const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+                const [key, value] = cookie.split('=').map(c => c.trim());
+                acc[key] = value;
+                return acc;
+            }, {});
+
+            const idToken = cookies.IDToken;
+
+            if (idToken) {
+                fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('profile-pic').src = data.picture;
+                    })
+                    .catch(error => {
+                        console.error('Error validating token:', error);
+                        // Clear the cookie and redirect to index.html if token validation fails
+                        document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                        window.location.href = 'index.html';
+                    });
+            } else {
+                // Redirect to index.html if no ID Token is found
+                window.location.href = 'index.html';
+            }
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown-menu');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function logout() {
+            document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            window.location.href = 'index.html';
+        }
+
+        // Close dropdown if clicking outside the profile
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile img')) {
+                const dropdown = document.getElementById('dropdown-menu');
+                if (dropdown.style.display === 'block') {
+                    dropdown.style.display = 'none';
+                }
+            }
         }
     </script>
 </body>
