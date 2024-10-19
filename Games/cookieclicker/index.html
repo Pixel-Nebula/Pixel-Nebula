@@ -53,6 +53,30 @@ var App=typeof App==='undefined'?0:App;
           google_ad_client: "ca-pub-8491708950677704",
           enable_page_level_ads: true
      });
+		function checkLoginStatus() {
+	const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+		const [key, value] = cookie.split('=').map(c => c.trim());
+		acc[key] = value;
+		return acc;
+	}, {});
+	
+	const idToken = cookies.IDToken;
+	
+	if (idToken) {
+		fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+			.then(response => response.json())
+			.then(data => {})
+			.catch(error => {
+				console.error('Error validating token:', error);
+				// Clear the cookie and redirect to index.html if token validation fails
+				document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+				window.location.href = '../../index.html';
+			});
+	} else {
+		// Redirect to index.html if no ID Token is found
+		window.location.href = '../../index.html';
+	}
+	}
 </script>
 <!-- /ad -->
 
@@ -64,7 +88,7 @@ var App=typeof App==='undefined'?0:App;
 
 <!--[if lt IE9]><script src="excanvas.compiled.js"></script><![endif]-->
 </head>
-<body>
+<body onload="checkLoginStatus()">
 
 <div id="wrapper">
 
@@ -251,7 +275,7 @@ var App=typeof App==='undefined'?0:App;
 						<div style="height:0px;"></div>
 						
 						<!-- AdventureQuest Worlds banner -->
-						<a class="ad" id="aqad" href="http://www.aq.com/landing/cookie/?utm_campaign=AQW_CookieClicker&utm_source=CookieClicker" target="_blank" title="AdventureQuest Worlds" style="background:url(img/AQWorlds_CookieClicker_300x40.png) no-repeat;width:300px;height:64px;display:block;position:relative;margin:0px auto;">
+						<a class="ad" id="aqad" href="http://www.aq.com/landing/cookie/?utm_campaign=AQW_CookieClicker&utm_source=CookieClicker" target="_blank" title="AdventureQuest Worlds" style="background:url(img/AQWorlds_CookieClicker_300x40.png) no-repeat;width:0px;height:0px;display:block;position:relative;margin:0px auto;">
 						</a>
 						
 					</div>
