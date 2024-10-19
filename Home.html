@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head >
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PixelNebula</title>
@@ -57,21 +57,81 @@
             text-decoration: underline;
         }
 
-        .logout {
+        .profile {
             position: absolute;
-            top: 20px; /* Top right of the window */
+            top: 20px;
             right: 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile:hover img {
+            transform: scale(1.1);
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px; /* Positioning the dropdown below the profile image */
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
             padding: 10px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+
+        .dropdown a {
+            display: block;
             text-decoration: none;
             color: white;
             font-size: 16px;
             font-weight: bold;
+            padding: 10px;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
 
-        .logout:hover {
+        .dropdown a:hover {
             background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: white;
+        }
+
+        .info {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info h3 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .info p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0;
         }
         .TOS {
             position: absolute;
@@ -89,33 +149,6 @@
         .TOS:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
-        footer {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-            font-size: 12px;
-            color: white;
-        }
-        .info {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 600px; /* Adjusted width for shorter lines */
-            width: 90%; /* Ensures responsiveness */
-            margin-top: 30px;
-            position: relative;
-            z-index: 1;
-        }
-        .info h3 {
-            font-size: 36px;
-            margin-bottom: 15px;
-        }
-        .info p {
-            font-size: 18px;
-            line-height: 1.6; /* Increased line height for better readability */
-            margin: 0; /* Removes default margin for better control */
-        }
     </style>
 </head>
 <body onload="checkLoginStatus()">
@@ -125,7 +158,14 @@
         <a href="Games.html">Games</a>
     </div>
     <a href="termsofservice.html" class="TOS">TOS</a>
-    <a href="#" class="logout" onclick="logout()">Logout</a>
+
+    <div class="profile" onclick="toggleDropdown()">
+        <img id="profile-pic" src="Pictures/profilepic.jpg" alt="Profile">
+        <div class="dropdown" id="dropdown-menu">
+            <a href="#">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
 
     <div class="header">
         <h2>Welcome to</h2>
@@ -135,7 +175,7 @@
     <!-- Info Section -->
     <div class="info">
         <h3>About Us</h3>
-        <p>At Pixel Nebula, we focus on quality over quantity, carefully selecting games that offer unique and engaging experiences. We believe that every game we feature should stand out, We have the source code for almost all our games so we can guarantee more than 3/4 of our site will constantly be up.
+        <p>At Pixel Nebula, we focus on quality over quantity, carefully selecting games that offer unique and engaging experiences. We believe that every game we feature should stand out.
 
             If you have a game you’d like us to add or just have questions, feel free to reach out! We’re always open to hearing from our community. Just drop us an email, and we'll get back to you!</p>
     </div>
@@ -143,35 +183,53 @@
     <footer>
         &copy; 2024 Pixel Nebula. All rights reserved. pixelnebulacontact@gmail.com
     </footer>
+
     <script>
         function checkLoginStatus() {
-    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
-        const [key, value] = cookie.split('=').map(c => c.trim());
-        acc[key] = value;
-        return acc;
-    }, {});
+            const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+                const [key, value] = cookie.split('=').map(c => c.trim());
+                acc[key] = value;
+                return acc;
+            }, {});
 
-    const idToken = cookies.IDToken;
+            const idToken = cookies.IDToken;
 
-    if (idToken) {
-        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
-            .then(response => response.json())
-            .then(data => {})
-            .catch(error => {
-                console.error('Error validating token:', error);
-                // Clear the cookie and redirect to index.html if token validation fails
-                document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            if (idToken) {
+                fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('profile-pic').src = data.picture;
+                    })
+                    .catch(error => {
+                        console.error('Error validating token:', error);
+                        // Clear the cookie and redirect to index.html if token validation fails
+                        document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                        window.location.href = 'index.html';
+                    });
+            } else {
+                // Redirect to index.html if no ID Token is found
                 window.location.href = 'index.html';
-            });
-    } else {
-        // Redirect to index.html if no ID Token is found
-        window.location.href = 'index.html';
-    }
-}
+            }
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown-menu');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
 
         function logout() {
             document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
             window.location.href = 'index.html';
+        }
+
+        // Close dropdown if clicking outside the profile
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile img')) {
+                const dropdown = document.getElementById('dropdown-menu');
+                if (dropdown.style.display === 'block') {
+                    dropdown.style.display = 'none';
+                }
+            }
         }
     </script>
 </body>
