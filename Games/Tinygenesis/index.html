@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="../../Pictures/Logo.png">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
-  <body>
+  <body onload="checkLoginStatus()">
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=600></canvas>
       <div id="unity-loading-bar">
@@ -102,6 +102,41 @@
         });
       };
       document.body.appendChild(script);
+    </script>
+    <script>
+      function checkLoginStatus() {
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=').map(c => c.trim());
+        acc[key] = value;
+        return acc;
+    }, {});
+
+    const idToken = cookies.IDToken;
+
+    if (idToken) {
+        if (sessionStorage.getItem('profile-pic')) {
+            // Use cached profile pic if available
+            document.getElementById('profile-pic').src = sessionStorage.getItem('profile-pic');
+        } else {
+            // Fetch profile info from API
+            fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('profile-pic').src = data.picture;
+                    // Cache profile picture in sessionStorage
+                    sessionStorage.setItem('profile-pic', data.picture);
+                })
+                .catch(error => {
+                    console.error('Error validating token:', error);
+                    document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                    window.location.href = 'index.html';
+                });
+        }
+    } else {
+        window.location.href = 'index.html';
+    }
+}
+
     </script>
   </body>
 </html>

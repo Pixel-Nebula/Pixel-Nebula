@@ -44,20 +44,29 @@
     const idToken = cookies.IDToken;
 
     if (idToken) {
-        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
-            .then(response => response.json())
-            .then(data => {})
-            .catch(error => {
-                console.error('Error validating token:', error);
-                // Clear the cookie and redirect to index.html if token validation fails
-                document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-                window.location.href = '../../index.html';
-            });
+        if (sessionStorage.getItem('profile-pic')) {
+            // Use cached profile pic if available
+            document.getElementById('profile-pic').src = sessionStorage.getItem('profile-pic');
+        } else {
+            // Fetch profile info from API
+            fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('profile-pic').src = data.picture;
+                    // Cache profile picture in sessionStorage
+                    sessionStorage.setItem('profile-pic', data.picture);
+                })
+                .catch(error => {
+                    console.error('Error validating token:', error);
+                    document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                    window.location.href = 'index.html';
+                });
+        }
     } else {
-        // Redirect to index.html if no ID Token is found
-        window.location.href = '../../index.html';
+        window.location.href = 'index.html';
     }
 }
+
   </script>
 </body>
 </html>
