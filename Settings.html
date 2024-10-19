@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PixelNebula</title>
-    <link rel="icon" href="Pictures/Logo.png" type="image/png"> <!-- Favicon added -->
+    <link rel="icon" href="Pictures/Logo.png" type="image/png">
     <style>
         body {
             margin: 0;
@@ -21,6 +21,7 @@
             justify-content: flex-start;
             align-items: center;
             padding-top: 0px;
+            overflow-y: auto;
         }
         .header {
             margin-top: 20px;
@@ -53,10 +54,130 @@
         .menu a:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
-        .menu a.home {
+        .menu a.Games {
             text-decoration: underline;
         }
+        .logout {
+            position: absolute;
+            top: 20px; /* Top right of the window */
+            right: 20px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
 
+        .logout:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .TOS {
+            position: absolute;
+            top: 20px; /* Top right of the window */
+            right: 110px;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .TOS:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: white;
+        }
+        .games-section {
+            margin-top: 40px; /* Move games up by 10 pixels */
+            padding: 20px;
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .games-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Space between game items */
+            justify-content: center;
+        }
+        .game-item {
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 3px solid white; /* White border */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left; /* Align text to the left */
+            width: 300px; /* Fixed width for game items */
+            box-sizing: border-box;
+            position: relative;
+        }
+        .game-item img.game-image {
+            width: 100px; /* Fixed width for the image */
+            height: 100px; /* Maintain aspect ratio */
+            border-radius: 10px;
+            margin-right: 20px; /* Space between image and text */
+        }
+        .game-item .text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1; /* Allow the text container to expand */
+            text-align: center; /* Center text within the container */
+        }
+        .game-item h3 {
+            margin: 0 0 5px 0;
+	    font-size: 20px;
+            font-weight: bold; /* Make the game text bold */
+        }
+	.game-item p {
+	    font-size: 14px;
+            margin: 0 0 2px 0;
+        }
+        .play-button {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: 2px solid white; /* Border for play button */
+            margin-top: 10px;
+        }
+        .play-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .search-bar {
+            margin-top: 70px;
+            text-align: center;
+            width: 100%;
+        }
+        .search-bar input {
+            width: 80%;
+            max-width: 600px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid white;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+        }
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
         .profile {
             position: absolute;
             top: 20px;
@@ -102,46 +223,15 @@
         .dropdown a:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
-
-        footer {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-            font-size: 12px;
-            color: white;
-        }
-
-        .info {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 600px;
-            width: 90%;
-            margin-top: 30px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .info h3 {
-            font-size: 36px;
-            margin-bottom: 15px;
-        }
-
-        .info p {
-            font-size: 18px;
-            line-height: 1.6;
-            margin: 0;
-        }
     </style>
 </head>
-<body onload="">
+<body onload="checkLoginStatus()">
     <!-- Menu -->
     <div class="menu">
         <a href="Home.html">Home</a>
-        <a href="Games.html">Games</a>
+        <a href="Games.html" class="Games">Games</a>
     </div>
-
+    
     <div class="profile" onclick="toggleDropdown()">
         <img id="profile-pic" src="Pictures/profilepic.jpg" alt="Profile">
         <div class="dropdown" id="dropdown-menu">
@@ -155,41 +245,61 @@
         <h3>Under Development!</h3>
     </div>
 
-    <!-- Info Section -->
+    <!-- Games Section -->
+    <div class="games-section">
+    </div>
     
-
+    <!-- Footer -->
     <footer>
         &copy; 2024 Pixel Nebula. All rights reserved. | pixelnebulacontact@gmail.com | <a href="termsofservice.html" style="text-decoration: none; color: blue;">TOS</a>
     </footer>
 
     <script>
         function checkLoginStatus() {
-            const cookies = document.cookie.split(';').reduce((acc, cookie) => {
-                const [key, value] = cookie.split('=').map(c => c.trim());
-                acc[key] = value;
-                return acc;
-            }, {});
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+        const [key, value] = cookie.split('=').map(c => c.trim());
+        acc[key] = value;
+        return acc;
+    }, {});
 
-            const idToken = cookies.IDToken;
+    const idToken = cookies.IDToken;
 
-            if (idToken) {
-                fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('profile-pic').src = data.picture;
-                    })
-                    .catch(error => {
-                        console.error('Error validating token:', error);
-                        // Clear the cookie and redirect to index.html if token validation fails
-                        document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-                        window.location.href = 'index.html';
-                    });
-            } else {
-                // Redirect to index.html if no ID Token is found
+    if (idToken) {
+        fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${idToken}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('profile-pic').src = data.picture;
+            })
+            .catch(error => {
+                console.error('Error validating token:', error);
+                // Clear the cookie and redirect to index.html if token validation fails
+                document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
                 window.location.href = 'index.html';
-            }
+            });
+    } else {
+        // Redirect to index.html if no ID Token is found
+        window.location.href = 'index.html';
+    }
+}
+
+        function logout() {
+            document.cookie = "IDToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            window.location.href = 'index.html';
         }
 
+        document.getElementById('searchInput').addEventListener('input', function() {
+            let filter = this.value.toLowerCase();
+            let gameItems = document.querySelectorAll('.game-item');
+            
+            gameItems.forEach(function(item) {
+                let gameTitle = item.querySelector('h3').textContent.toLowerCase();
+                if (gameTitle.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
         function toggleDropdown() {
             const dropdown = document.getElementById('dropdown-menu');
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
