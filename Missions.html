@@ -172,6 +172,7 @@
                 clearInterval(timerInterval); // Stop the timer when time runs out
                 timerElement.textContent = '00:00:00';
                 alert("Timer has ended!");
+                localStorage.removeItem('timerEnd');
                 return;
             }
 
@@ -183,10 +184,18 @@
             timerElement.textContent = `Time remaining: ${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
         }
 
-        // Initialize 24-hour timer
+        // Function to start a 24-hour timer and save its end time in localStorage
+        function start24HourTimer() {
+            const now = new Date();
+            const endTime = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24 hours from now
+            localStorage.setItem('timerEnd', endTime.getTime()); // Save end time in localStorage
+            return endTime;
+        }
+
+        // Check if there's already a saved timer in localStorage
+        let timerEnd = localStorage.getItem('timerEnd') ? new Date(parseInt(localStorage.getItem('timerEnd'))) : start24HourTimer();
+
         const timerElement = document.getElementById('timer');
-        const timerStart = new Date(); // Current time
-        const timerEnd = new Date(timerStart.getTime() + 24 * 60 * 60 * 1000); // 24 hours from now
 
         // Start the countdown timer
         const timerInterval = setInterval(updateTimer, 1000);
