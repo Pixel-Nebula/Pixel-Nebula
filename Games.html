@@ -225,24 +225,6 @@
         .dropdown a:hover {
             background-color: rgba(255, 255, 255, 0.2);
         }
-        .star-icon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 24px;
-        color: white; /* White outline */
-        background-color: black; /* Default star center color */
-        padding: 3px;
-        border-radius: 50%; /* Circular border */
-        border: 2px solid white; /* White outline around the star */
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    /* Star turns yellow when clicked */
-    .star-icon.yellow {
-        background-color: yellow; /* Star center changes to yellow */
-    }
     </style>
 </head>
 <body onload="checkLoginStatus()">
@@ -280,7 +262,6 @@
 		    <p><small>Up to Date!</small></p>
                     <a href="Games/10minutestilldawn/index.html" class="play-button">Play</a>
                 </div>
-                <span class="star-icon" onclick="toggleStar(this)">★</span>
             </div>
 	        <div class="game-item">
                 <img src="Pictures/2048.png" alt="Game 6" class="game-image">
@@ -732,9 +713,3 @@
     </script>
 </body>
 </html>
-
-<script>
-    function toggleStar(star) {
-        star.classList.toggle("yellow");
-    }
-</script>
