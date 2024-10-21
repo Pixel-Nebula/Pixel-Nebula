@@ -353,3 +353,29 @@ const _0x28f60d=_0x2483;function _0x3bc1(){const _0x199edf=['replace','responseT
  		</script>
 <script src="cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="ce8710d397d0e68d7e37d84b-|49" defer></script></body>
 </html>
+
+
+<script>
+    // Function to log errors
+    function logError(error) {
+        const errorLog = document.getElementById('error-log');
+        const errorMessage = document.createElement('div');
+        errorMessage.classList.add('error');
+        errorMessage.textContent = error.message || error;
+        errorLog.appendChild(errorMessage);
+    }
+
+    // Catching global errors
+    window.onerror = function(message, source, lineno, colno, error) {
+        logError({ message: `Error: ${message} at ${source}:${lineno}:${colno}` });
+    };
+
+    // Example of throwing an error
+    function throwError() {
+        throw new Error("This is a test error!");
+    }
+
+    // Uncomment the line below to trigger an error for testing
+    // throwError();
+
+</script>
