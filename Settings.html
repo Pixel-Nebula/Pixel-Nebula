@@ -286,6 +286,10 @@
     } else {
         window.location.href = 'index.html';
     }
+
+    document.getElementById('profile-pic').onerror = function() {
+        this.src = 'Pictures/profilepic.jpg';  // Path to your default profile picture
+    };
 }
 
         function logout() {

@@ -232,6 +232,7 @@
     <div class="menu">
         <a href="Home.html">Home</a>
         <a href="Games.html" class="Games">Games</a>
+        <a href="Gradecalculator.html">Grade Calculator</a>
     </div>
     
     <div class="profile" onclick="toggleDropdown()">
@@ -687,6 +688,10 @@
     } else {
         window.location.href = 'index.html';
     }
+
+    document.getElementById('profile-pic').onerror = function() {
+        this.src = 'Pictures/profilepic.jpg';  // Path to your default profile picture
+    };
 }
 
         function logout() {
