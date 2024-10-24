@@ -117,7 +117,7 @@ comm_stage_PAT1	Point after touchdown...
 comm_stage_PAT2_Missed	Missed!
 comm_stage_PAT2_Scored	Scored!
 comm_stage_FieldGoal1	$teamname with a $num yard field goal...
-comm_stage_FieldGoal2_Missed	Missed!
+comm_stage_FieldGoal2_Missed	They Missed Wide Right!
 comm_stage_FieldGoal2_Scored	Scored!
 comm_stage_end_quarter1	End of 1st quarter
 comm_stage_end_quarter2	End of 1st half
@@ -444,7 +444,7 @@ ui_Scanlines	Scanlines
 ui_On	On
 ui_Off	Off
 ui_TeamMorale	Team Morale
-ui_Credit	Credit
+ui_Credit	Credit 
 ui_Facilities	Facilities
 ui_Fans	Fans
 ui_Fan	Fan
