@@ -40,7 +40,7 @@
             top: 20px;
             left: 20px;
             display: flex;
-            gap: 20px; /* Adjust the spacing between menu items */
+            gap: 20px; /* Adjust the spacing betwe menu items */
         }
         .menu a {
             text-decoration: none;
@@ -90,12 +90,14 @@
             background-color: rgba(255, 255, 255, 0.2);
         }
         footer {
-            position: absolute;
-            bottom: 10px;
+            position: relative;
+            bottom: 3px;
             width: 100%;
             text-align: center;
             font-size: 12px;
             color: white;
+            padding: 3px 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Background color to make the text stand out */
         }
         .games-section {
             margin-top: 40px; /* Move games up by 10 pixels */
@@ -229,7 +231,7 @@
     <!-- Menu -->
     <div class="menu">
         <a href="Home.html">Home</a>
-        <a href="Games.html">Games</a>
+        <a href="Games.html" class="Games">Games</a>
         <a href="Apps.html">Apps</a>
     </div>
     
@@ -243,11 +245,27 @@
 
     <div class="header">
         <h2>Pixel Nebula</h2>
-        <h3>Under Development!</h3>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search games...">
     </div>
 
     <!-- Games Section -->
     <div class="games-section">
+        <div class="games-container">
+            <!-- Existing games -->
+             
+            <div class="game-item">
+                <img src="Pictures/Ai.png" alt="Game 6" class="game-image">
+                <div class="text-container">
+                    <h3>Ai</h3>
+		    <p><small>Up to Date!</small></p>
+                    <a href="Games/AI/index.html" class="play-button">Play</a>
+                </div>
+            </div>
+        </div>
     </div>
     
     <!-- Footer -->
